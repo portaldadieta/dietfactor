@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@dietfactor/modules/auth": ["modules/auth/src/index.ts"],
+      "@dietfactor/modules/consult-diets": [
+        "modules/consult-diets/src/index.ts"
+      ],
+      "@dietfactor/modules/consult-food": ["modules/consult-food/src/index.ts"],
+      "@dietfactor/modules/home": ["modules/home/src/index.ts"],
+      "@dietfactor/modules/navbar": ["modules/navbar/src/index.ts"],
+      "@dietfactor/modules/plan-diet": ["modules/plan-diet/src/index.ts"],
+      "@dietfactor/modules/register": ["modules/register/src/index.ts"],
+      "@dietfactor/modules/shared/ui": ["modules/shared/ui/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
