@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { NavbarComponent } from '@dietfactor/modules/navbar';
 const MATERIAL_MODULES = [
   MatFormFieldModule,
   MatInputModule,
@@ -29,6 +30,7 @@ const MATERIAL_MODULES = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    NavbarComponent,
     UiComponent,
     ...MATERIAL_MODULES,
   ],
