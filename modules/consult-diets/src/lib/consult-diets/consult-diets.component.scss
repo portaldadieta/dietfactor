@@ -1,0 +1,53 @@
+.container {
+  height: 100vh;
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.diet-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  place-content: space-evenly;
+  align-items: center;
+}
+
+.diet-search {
+  width: 500px;
+}
+
+.my-diets-container {
+  padding: 20px;
+  height: 55%;
+  display: grid;
+  grid-template-columns: minmax(auto, 1fr) 1fr;
+  gap: 6rem 8rem;
+  overflow-y: auto;
+}
+
+.diet-card {
+  padding: 6px 12px;
+  background-color: #f3efef;
+  border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+    background-color: #d1d1d1;
+  }
+  ul {
+    list-style: none;
+    text-align: right;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
