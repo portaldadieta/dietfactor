@@ -1,0 +1,56 @@
+.container {
+  height: 100vh;
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.food-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  place-content: space-evenly;
+  align-items: center;
+}
+
+.food-search {
+  width: 500px;
+}
+
+.my-foods-container {
+  padding: 20px;
+  height: 55%;
+  display: grid;
+  grid-template-columns: minmax(auto, 1fr) 1fr;
+  gap: 6rem 8rem;
+  overflow-y: auto;
+}
+
+.food-card {
+  padding: 6px 12px;
+  height: 180px;
+  background-color: #f3efef;
+  border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+    background-color: #d1d1d1;
+  }
+  ul {
+    list-style: none;
+    text-align: left;
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
