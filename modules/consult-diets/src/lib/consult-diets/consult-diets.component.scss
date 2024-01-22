@@ -30,13 +30,28 @@
   padding: 6px 12px;
   background-color: #f3efef;
   border-radius: 10px;
+  max-height: 180px;
   &:hover {
     cursor: pointer;
     background-color: #d1d1d1;
   }
   ul {
+    padding: 0;
+    width: 100%;
     list-style: none;
-    text-align: right;
+    text-align: left;
+  }
+}
+
+.diet-not-found {
+  grid-column: 1 / -1;
+  .not-found-message {
+    font-size: 20px;
+    font-style: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
   }
 }
 
