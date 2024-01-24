@@ -29,17 +29,17 @@
     <mat-card>
       <mat-card-title>Acesse a plataforma</mat-card-title>
       <mat-card-content>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput placeholder="Email" />
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Senha</mat-label>
           <input matInput type="password" placeholder="Senha" />
         </mat-form-field>
 
-        <button mat-raised-button (click)="redirectToRoute()">Login</button>
+        <button class="login-button" mat-raised-button (click)="redirectToRoute()">Login</button>
 
         <div class="separator">
           <div class="line"></div>

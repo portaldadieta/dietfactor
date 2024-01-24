@@ -5,15 +5,15 @@
         <span class="header-container-name">Fulano de Tal</span>
     </div>
     <div class="body-container">
-        <button mat-stroked-button>
+        <button (click)="redirectTo('/consult-diets')" mat-raised-button>
             <mat-icon>fastfood</mat-icon>
             minhas dietas
         </button>
-        <button mat-stroked-button>
+        <button (click)="redirectTo('/consult-diets')" mat-raised-button>
             <mat-icon>build</mat-icon>
             planejar uma dieta
         </button>
-        <button mat-stroked-button>
+        <button (click)="redirectTo('/consult-foods')" mat-raised-button>
             <mat-icon>search</mat-icon>
             consultar alimentos
         </button>
@@ -28,7 +28,7 @@
             </svg>
         </div>
         <div class="footer-container-button">
-            <button mat-stroked-button>
+            <button (click)="redirectToAuth()" mat-raised-button>
                 sair
             </button>
         </div>
