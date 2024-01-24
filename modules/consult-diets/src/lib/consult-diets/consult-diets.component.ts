@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
+import { Subscription } from 'rxjs';
 
 const MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -38,16 +39,21 @@ const MATERIAL_MODULES = [
   templateUrl: './consult-diets.component.html',
   styleUrl: './consult-diets.component.scss',
 })
-export class ConsultDietsComponent implements OnInit {
+export class ConsultDietsComponent implements OnInit, OnDestroy {
   dietSearchForm!: FormGroup;
   allDiets!: Diet[];
   filteredDiets!: Diet[];
   filterName!: string;
+  subscription!: Subscription | undefined;
 
   ngOnInit(): void {
     this.initializeDietSearchForm();
     this.initializeStaticData();
     this.myDietsFiltered();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   initializeDietSearchForm(): void {
@@ -155,7 +161,7 @@ export class ConsultDietsComponent implements OnInit {
   }
 
   myDietsFiltered(): void {
-    this.dietSearchForm
+    this.subscription = this.dietSearchForm
       .get('dietName')
       ?.valueChanges.subscribe((name) => this.myDietsFilter(name));
   }
