@@ -1,2 +1,50 @@
-<p>consult-diets works!</p>
-<dietfactor-ui></dietfactor-ui>
+<div class="container">
+  <dietfactor-navbar></dietfactor-navbar>
+  <main class="diet-container">
+    <form [formGroup]="dietSearchForm">
+      <h1 class="title">Minhas dietas ( {{ filteredDiets.length }} )</h1>
+      <mat-form-field appearance="fill" class="diet-search">
+        <mat-label>Dietas...</mat-label>
+        <label class="sr-only" for="search-diet">Minhas dietas</label>
+        <input
+          type="search"
+          formControlName="dietName"
+          id="search-diet"
+          placeholder="Ex. Dieta do Monstro"
+          matInput
+        />
+      </mat-form-field>
+    </form>
+
+    <section class="my-diets-container">
+      @for(diet of filteredDiets; track diet) {
+      <mat-card class="diet-card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{ diet.name }}</mat-card-title>
+            <mat-card-subtitle>{{ diet.goal }}</mat-card-subtitle>
+          </mat-card-title-group>
+          <mat-icon>restaurant_menu</mat-icon>
+        </mat-card-header>
+
+        <mat-card-content>
+          <ul>
+            <li>Total kcal: {{ diet.kcal }}</li>
+            <li>
+              Macros (gr): {{ diet.protein }} p / {{ diet.carbs }} c /
+              {{ diet.fat }} g
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+      } @empty {
+      <div class="diet-not-found">
+        <p class="not-found-message">
+          Não foram encontradas dietas com esse nome
+          <mat-icon> sentiment_very_dissatisfied </mat-icon>
+        </p>
+      </div>
+      }
+    </section>
+  </main>
+</div>
