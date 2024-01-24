@@ -8,7 +8,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConsultFoodModalComponent } from './components/consult-food-modal.component';
 
 @Component({
   selector: 'dietfactor-consult-food',
@@ -30,6 +32,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
   styleUrl: './consult-food.component.scss',
 })
 export class ConsultFoodComponent implements OnInit {
+  constructor (private dialog: MatDialog) {};
+
   foodSearchForm!: FormGroup;
   filteredFoods!: Food[];
   filterName!: string;
@@ -140,6 +144,14 @@ export class ConsultFoodComponent implements OnInit {
     this.foodSearchForm
       .get('foodName')
       ?.valueChanges.subscribe((name) => this.myFoodsFilter(name));
+  }
+
+  openDialog(food: Food): void {
+    const modal = this.dialog.open(ConsultFoodModalComponent, {
+      width: '350px',
+      height: '300px',
+      data: food
+    })
   }
 }
 

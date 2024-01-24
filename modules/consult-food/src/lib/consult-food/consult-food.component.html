@@ -18,7 +18,7 @@
     </form>
 
     <section class="my-foods-container">
-      <mat-card class="food-card" *ngFor="let food of filteredFoods">
+      <mat-card class="food-card" (click)="openDialog(food)" *ngFor="let food of filteredFoods">
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title>{{ food.name }}</mat-card-title>

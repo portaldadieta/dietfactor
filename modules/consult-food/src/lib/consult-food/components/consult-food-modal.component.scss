@@ -1,0 +1,45 @@
+h2 {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+      li {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+      }
+    } 
+    
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.divider {
+  height: 30px;
+  width: 5px;
+  margin-right: 0.5rem;
+  background-color: #8e44ad;
+}
