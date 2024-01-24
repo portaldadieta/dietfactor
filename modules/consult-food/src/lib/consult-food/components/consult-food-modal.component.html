@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Detalhes do alimento</h2>
+
+<div class="container">
+  <div class="content" mat-dialog-content>
+    <h3>{{data.name}}</h3>
+    <ul>
+      <li>
+        <div class="divider"></div>
+        <p>Calorias: {{data.kcal}} kcal</p>
+      </li>
+      <li>
+        <div class="divider"></div>
+        <p>Proteínas: {{data.protein}}</p>
+      </li>
+      <li>
+        <div class="divider"></div>
+        <p>Carboidratos: {{data.carbs}}</p>
+      </li>
+      <li>
+        <div class="divider"></div>
+        <p>Fator: {{data.fat}}</p>
+      </li>
+    </ul>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="closeModal()">Fechar</button>
+  </div>
+</div>

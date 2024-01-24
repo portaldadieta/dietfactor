@@ -1,1 +1,74 @@
-<p>consult-food works!</p>
+<div class="container">
+  <dietfactor-navbar></dietfactor-navbar>
+
+  <main class="food-container">
+    <form [formGroup]="foodSearchForm">
+      <h1 class="title">Consultar alimentos ( {{ filteredFoods.length }} )</h1>
+      <mat-form-field appearance="fill" class="food-search">
+        <mat-label>Alimentos...</mat-label>
+        <label class="sr-only" for="search-food">Consultar alimentos</label>
+        <input
+          type="search"
+          formControlName="foodName"
+          id="search-food"
+          placeholder="Ex. Frango grelhado"
+          matInput
+        />
+      </mat-form-field>
+    </form>
+
+    <section class="my-foods-container">
+      <mat-card class="food-card" (click)="openDialog(food)" *ngFor="let food of filteredFoods">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{ food.name }}</mat-card-title>
+          </mat-card-title-group>
+          <svg
+            matCardImage
+            width="80px"
+            height="80px"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 296.195 296.195"
+          >
+            <path
+              d="M158.216,49.633c-54.294,0-98.466,44.171-98.466,98.465s44.172,98.465,98.466,98.465c54.293,0,98.464-44.171,98.464-98.465
+		S212.509,49.633,158.216,49.633z M158.216,215.636c-37.241,0-67.539-30.298-67.539-67.538s30.298-67.538,67.539-67.538
+		c37.24,0,67.537,30.298,67.537,67.538S195.456,215.636,158.216,215.636z"
+            />
+            <path
+              d="M293.939,96.877c-3.65-15.548-10.662-26.685-10.962-27.151c-1.921-2.984-5.705-4.347-9.108-3.346
+		c-3.405,1.001-5.869,4.126-5.869,7.675v148.043c0,4.418,3.582,8,8,8s8-3.582,8-8v-70.542
+		C296,136.346,298.777,117.483,293.939,96.877z"
+            />
+            <path
+              d="M62,84.235V74.098c0-4.418-3.582-8-8-8s-8,3.582-8,8v10.138c0,5.227-2,9.815-7,12.426V74.098c0-4.418-3.582-8-8-8
+		s-8,3.582-8,8v22.564c-4-2.611-7-7.199-7-12.427V74.098c0-4.418-3.582-8-8-8s-8,3.582-8,8v10.138c0,14.196,10,26.169,23,29.674
+		v109.188c0,4.418,3.582,8,8,8s8-3.582,8-8V113.908C53,110.403,62,98.431,62,84.235z"
+            />
+            <path
+              d="M186.331,117.574c-3.879-2.114-8.738-0.687-10.854,3.192l-23.662,43.381l-11.658-17.487
+		c-2.449-3.676-7.418-4.671-11.094-2.219c-3.677,2.45-4.67,7.418-2.219,11.094l19,28.5c1.487,2.231,3.989,3.563,6.655,3.563
+		c0.118,0,0.236-0.003,0.355-0.008c2.798-0.124,5.327-1.702,6.669-4.161l30-55C191.639,124.55,190.21,119.69,186.331,117.574z"
+            />
+          </svg>
+        </mat-card-header>
+
+        <mat-card-content>
+          <ul>
+            <li>Total kcal: {{ food.kcal }}</li>
+            <li>
+              Macros (gr): {{ food.protein }} p / {{ food.carbs }} c /
+              {{ food.fat }} g
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </main>
+</div>
+
+<!--
+
+  protein / carbs / fat
+
+-->
