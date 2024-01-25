@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
 @Component({
   selector: 'dietfactor-navbar',
@@ -11,4 +12,10 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  router: Router = inject(Router);
+
+  redirectTo(path: string): void {
+    this.router.navigate([path]);
+  }
+}

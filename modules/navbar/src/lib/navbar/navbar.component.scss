@@ -1,52 +1,98 @@
 .nav-bar-container {
-    height: 100vh;
-    width: 300px;
-    border-right: 3px solid rgba(28,110,164,0.05);
-    background-color: #f3efef;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 10%;
+  height: 100vh;
+  width: 300px;
+  background: #003465;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10%;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px);
+  border: 1px solid rgba(0, 52, 101, 1);
+  color: #fff;
 }
 .content {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 5rem;
 }
 .icon-person {
-    font-size: 100px;
-    height: 100px;
-    width: 100px;
-    background-color: #fff;
-    border-radius: 50%;
-    padding: 10px;
-    align-self: center;
-    margin-top: 3rem;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 10px;
+  align-self: center;
+  color: #fff;
 }
-.header-container,
-.body-container {
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  &-titles {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    gap: 0.3rem;
+  }
+  &-atv {
+    color: #757575;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+}
+.divider {
+  border-radius: 2px;
+  background: #012d56;
+  height: 2px;
+}
+.body-container {
+  flex-direction: column;
+  gap: 0.3rem;
 }
 .footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: flex-end;
+  &-logo {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-self: flex-end;
-    &-logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        span {
-            font-size: 40px;
-        }
+    align-items: center;
+    justify-content: center;
+    span {
+      font-size: 40px;
     }
+  }
+}
+button {
+    padding-left: 2.5rem;
+    display: flex;
+    text-align: start;
+    justify-content: flex-start;
+    gap: 2rem;
 }
 button,
 .footer-container {
-    width: 100%;
-    border-radius: 0%;
+  width: 100%;
+  border-radius: 0%;
+  color: #fff !important;
+  border: none;
+}
+.profile-image {
+  background-image: url('../../../../../src/assets/images/mulher-bonita.jpg');
+  width: 70px;
+  height: 70px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+}
+.logout {
+  color: #d55f5a !important;
+}
+.help {
+    color: #fff;
 }
