@@ -26,6 +26,10 @@ export const appRoutes: Route[] = [
         loadComponent: ()=>import('@dietfactor/modules/plan-diet').then((c)=>c.PlanDietComponent)
     },
     {
+        path: 'edit-profile',
+        loadComponent: ()=>import('@dietfactor/modules/edit-profile').then((c)=>c.EditProfileComponent)
+    },
+    {
         path: "**",
         redirectTo: ""
     }
