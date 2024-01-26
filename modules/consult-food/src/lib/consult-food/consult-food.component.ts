@@ -148,8 +148,8 @@ export class ConsultFoodComponent implements OnInit {
 
   openDialog(food: Food): void {
     const modal = this.dialog.open(ConsultFoodModalComponent, {
-      width: '350px',
-      height: '300px',
+      width: '380px',
+      height: '400px',
       data: food
     })
   }
