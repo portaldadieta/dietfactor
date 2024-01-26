@@ -20,6 +20,7 @@
         "modules/consult-diets/src/index.ts"
       ],
       "@dietfactor/modules/consult-food": ["modules/consult-food/src/index.ts"],
+      "@dietfactor/modules/edit-profile": ["modules/edit-profile/src/index.ts"],
       "@dietfactor/modules/home": ["modules/home/src/index.ts"],
       "@dietfactor/modules/navbar": ["modules/navbar/src/index.ts"],
       "@dietfactor/modules/plan-diet": ["modules/plan-diet/src/index.ts"],

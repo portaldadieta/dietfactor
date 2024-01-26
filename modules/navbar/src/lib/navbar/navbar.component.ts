@@ -13,6 +13,29 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  navBarButtons = [
+    {
+      title: 'minhas dietas',
+      router: '/consult-diets',
+      icon: 'fastfood'
+    },
+    {
+      title: 'planejar uma dieta',
+      router: '/plan-diet',
+      icon: 'build'
+    },
+    {
+      title: 'consultar alimentos',
+      router: '/consult-food',
+      icon: 'search'
+    },
+    {
+      title: 'editar perfil',
+      router: '/edit-profile',
+      icon: 'settings'
+    },
+
+  ]
   router: Router = inject(Router);
 
   redirectTo(path: string): void {

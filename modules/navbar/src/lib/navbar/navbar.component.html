@@ -9,30 +9,17 @@
     </div>
     <div class="divider"></div>
     <div class="body-container">
-      <button (click)="redirectTo('/consult-diets')" mat-stroked-button>
-        <mat-icon>fastfood</mat-icon>
-        <span>
-            minhas dietas
-        </span>
-      </button>
-      <button (click)="redirectTo('/consult-food')" mat-stroked-button>
-        <mat-icon>build</mat-icon>
-        <span>
-            planejar uma dieta
-        </span>
-      </button>
-      <button (click)="redirectTo('/consult-food')" mat-stroked-button>
-        <mat-icon>search</mat-icon>
-        <span>consultar alimentos</span>
-      </button>
-      <button (click)="redirectTo('/consult-food')" mat-stroked-button>
-        <mat-icon>settings</mat-icon>
-        <span>editar perfil</span>
-      </button>
+      @for (button of navBarButtons; track button) {
+        <button (click)="redirectTo(button.router)" mat-stroked-button>
+          <mat-icon>{{button.icon}}</mat-icon>
+          <span>
+              {{button.title}}
+          </span>
+        </button>
+      }
     </div>
   </div>
   <div class="divider"></div>
-
   <div class="footer-container">
     <div class="footer-container-logo">
       <svg
