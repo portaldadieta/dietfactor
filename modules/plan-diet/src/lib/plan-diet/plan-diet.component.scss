@@ -1,0 +1,66 @@
+.container {
+    height: 100vh;
+    display: flex;
+    gap: 1rem;
+    overflow: hidden;
+  }
+
+  .form-container {
+    text-align: center;
+    width: 100%;
+  }
+  
+
+  .diet-container {
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    place-content: flex-start;
+  }
+  
+
+  mat-form-field {
+    width: 70%;
+  }
+
+  .small-dropdown {
+    width: calc(70% * 0.45); 
+}
+
+.add-meal {
+    width: calc(70% * 0.45); 
+    margin-left: 10px; 
+}
+
+.create-diet {
+    margin-top: 5%;
+    width: 25%; 
+    align-self: flex-end; 
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 70%; 
+    margin: 0 auto; 
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+}
+.button-container {
+    justify-content: flex-end; 
+}
+
+
+.add-meal, .create-diet {
+    height: 56px; 
+    line-height: 56px; 
+    padding: 0 25px; 
+}

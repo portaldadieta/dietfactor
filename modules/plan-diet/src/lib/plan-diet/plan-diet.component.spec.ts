@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PlanDietComponent } from './plan-diet.component';
+import { NavbarComponent } from '@dietfactor/modules/navbar';
 
 describe('PlanDietComponent', () => {
   let component: PlanDietComponent;
@@ -7,7 +8,7 @@ describe('PlanDietComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PlanDietComponent],
+      imports: [PlanDietComponent, NavbarComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PlanDietComponent);
