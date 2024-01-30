@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DietInterface } from '../../interfaces/diet.interface';
+import { Diet } from '../../interfaces/diet.interface';
 const MATERIAL_MODULES = [MatFormFieldModule, MatInputModule, MatIconModule];
 
 @Component({
@@ -30,7 +30,7 @@ export class ConsultDietsModalComponent implements OnInit {
 
   constructor(
     public modal: MatDialogRef<ConsultDietsModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public dietInfo: DietInterface
+    @Inject(MAT_DIALOG_DATA) public dietInfo: Diet
   ) {}
 
   ngOnInit(): void {

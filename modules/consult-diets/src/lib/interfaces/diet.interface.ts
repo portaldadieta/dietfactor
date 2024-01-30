@@ -1,5 +1,5 @@
-export interface DietInterface {
-    name: string;
+export interface Diet {
+  name: string;
   kcal: number;
   goal: 'Bulking' | 'Cutting' | 'Manutenção';
   protein: number;

@@ -1,9 +1,3 @@
-form,
-mat-form-field,
-.form-container {
-  width: 100%;
-  text-align: center;
-}
 .container {
   height: 100vh;
   display: flex;
@@ -11,27 +5,38 @@ mat-form-field,
   overflow: hidden;
 }
 
+.form-container {
+  text-align: center;
+}
+
+.diet-search {
+  width: 50%;
+}
+
 .diet-container {
   width: 100%;
-  place-content: space-evenly;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .my-diets-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  gap: 10px;
   overflow-y: auto;
 }
 
 .diet-card {
   padding: 6px 12px;
-  padding: 6px 12px;
   border-radius: 8px;
-  background: #FFF;  
+  background: #fff;
   box-shadow: none;
-  color: #383E49;
+  color: #383e49;
+  transition: background 0.2s;
+  max-width: 23.75rem;
   &:hover {
     cursor: pointer;
     background: rgba(0, 93, 231, 0.28);
@@ -46,8 +51,9 @@ mat-form-field,
 
 .diet-not-found {
   grid-column: 1 / -1;
+  margin-top: 4.5rem;
   .not-found-message {
-    font-size: 20px;
+    font-size: 1.3rem;
     font-style: bold;
     display: flex;
     align-items: center;
@@ -66,4 +72,16 @@ mat-form-field,
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+@media (max-width: 1152px) {
+  .my-diets-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .my-diets-container {
+    grid-template-columns: 1fr;
+  }
 }

@@ -13,8 +13,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
+import { ConsultDietsModalComponent } from './components/consult-diets-modal.component';
 import { Subscription } from 'rxjs';
+import { Diet } from '../interfaces/diet.interface';
 
 const MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -33,9 +36,11 @@ const MATERIAL_MODULES = [
     FormsModule,
     ReactiveFormsModule,
     NavbarComponent,
+    ConsultDietsModalComponent,
     UiComponent,
     ...MATERIAL_MODULES,
   ],
+  providers: [MatDialog],
   templateUrl: './consult-diets.component.html',
   styleUrl: './consult-diets.component.scss',
 })
@@ -45,6 +50,8 @@ export class ConsultDietsComponent implements OnInit, OnDestroy {
   filteredDiets!: Diet[];
   filterName!: string;
   subscription!: Subscription | undefined;
+
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.initializeDietSearchForm();
@@ -127,7 +134,7 @@ export class ConsultDietsComponent implements OnInit, OnDestroy {
         protein: 140,
         carbs: 250,
         fat: 100,
-      }
+      },
     ];
     this.filteredDiets = [...this.allDiets];
   }
@@ -149,13 +156,12 @@ export class ConsultDietsComponent implements OnInit, OnDestroy {
       .get('dietName')
       ?.valueChanges.subscribe((name) => this.myDietsFilter(name));
   }
-}
 
-interface Diet {
-  name: string;
-  kcal: number;
-  goal: 'Bulking' | 'Cutting' | 'Manutenção';
-  protein: number;
-  carbs: number;
-  fat: number;
+  openDietInfoModal(dietInfo: Diet): void {
+    this.dialog.open(ConsultDietsModalComponent, {
+      width: '1256px',
+      height: '380px',
+      data: dietInfo,
+    });
+  }
 }
