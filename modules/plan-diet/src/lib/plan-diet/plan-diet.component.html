@@ -1,1 +1,55 @@
-<p>plan-diet works!</p>
+<div class="container">
+  <main class="diet-container">
+    <form [formGroup]="dietPlanForm" class="form-container">
+      <h1 class="title">Planejar dieta</h1>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Objetivo</mat-label>
+        <mat-select>
+          <mat-option value="manutencao">Manutenção</mat-option>
+          <mat-option value="deficit">Déficit</mat-option>
+          <mat-option value="superavit">Superávit</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Intensidade do Déficit/Superávit</mat-label>
+        <input
+          formControlName="intensity"
+          matInput
+          placeholder="Intensidade do Déficit/Superávit"
+        />
+        <mat-error *ngIf="intensity?.invalid"
+          >Por favor, insira um número válido.</mat-error
+        >
+      </mat-form-field>
+
+      <div class="form-row">
+        <mat-form-field class="small-dropdown">
+          <mat-label>Refeições</mat-label>
+          <mat-select appearance="fill">
+            <mat-option value="cafe">Café da Manhã</mat-option>
+            <mat-option value="almoco">Almoço</mat-option>
+            <mat-option value="jantar">Jantar</mat-option>
+            <mat-option value="lanche">Lanche</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field class="small-dropdown">
+          <mat-label>Fator de Atividade</mat-label>
+          <mat-select appearance="fill">
+            <mat-option value="leve">Leve</mat-option>
+            <mat-option value="moderada">Moderada</mat-option>
+            <mat-option value="intensa">Intensa</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="button-container">
+        <button mat-raised-button class="create-diet">Criar</button>
+      </div>
+    </form>
+  </main>
+</div>

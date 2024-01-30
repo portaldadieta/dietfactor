@@ -13,7 +13,6 @@ mat-form-field,
 
 .diet-container {
   width: 100%;
-  padding-top: 1rem;
   place-content: space-evenly;
 }
 
@@ -28,11 +27,11 @@ mat-form-field,
 
 .diet-card {
   padding: 6px 12px;
-  border-radius: 10px;
-  border: 3px solid rgba(88, 130, 193, 0.49);
-  background: rgba(88, 130, 193, 0.28);
-  backdrop-filter: blur(12.5px);
-  max-height: 180px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #FFF;  
+  box-shadow: none;
+  color: #383E49;
   &:hover {
     cursor: pointer;
     background: rgba(0, 93, 231, 0.28);

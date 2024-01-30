@@ -1,2 +1,10 @@
 .container {
+    background-color: #F0F1F3;
+    display: flex;
+    gap: 1rem;
+}
+.components {
+    padding: 1rem 1rem 0 1rem;
+    width: 100%;
+    overflow-x: hidden;
 }

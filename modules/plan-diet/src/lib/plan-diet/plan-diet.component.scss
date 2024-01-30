@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  overflow: hidden;
+}
+
+.form-container {
+  text-align: center;
+  width: 100%;
+}
+
+.diet-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  place-content: flex-start;
+}
+
+mat-form-field {
+  width: 100%;
+}
+.create-diet {
+  width: 100%;
+  align-self: flex-end;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.button-container {
+  justify-content: flex-end;
+}
+
+.add-meal,
+.create-diet {
+  padding: 1rem;
+  background-color: #003465 !important;
+  color: #fff;
+  box-shadow: none;
+}

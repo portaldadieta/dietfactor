@@ -127,23 +127,7 @@ export class ConsultDietsComponent implements OnInit, OnDestroy {
         protein: 140,
         carbs: 250,
         fat: 100,
-      },
-      {
-        name: 'Dieta do Monstro',
-        goal: 'Bulking',
-        kcal: 2600,
-        protein: 140,
-        carbs: 250,
-        fat: 100,
-      },
-      {
-        name: 'Dieta do Monstro',
-        goal: 'Bulking',
-        kcal: 2600,
-        protein: 140,
-        carbs: 250,
-        fat: 100,
-      },
+      }
     ];
     this.filteredDiets = [...this.allDiets];
   }
