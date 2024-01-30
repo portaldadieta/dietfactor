@@ -1,6 +1,6 @@
 .edit-profile-container {
   display: flex;
-  width: 70vw;
+  width: 100%;
   gap: 1rem;
   text-align: center;
 }
@@ -9,7 +9,6 @@
 }
 form {
   display: grid;
-  padding-top: 1rem;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(4, 80px);
   grid-column-gap: 1rem;
