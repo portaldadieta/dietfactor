@@ -1,0 +1,18 @@
+<div class="container">
+  <form [formGroup]="foodAmountForm">
+    <div class="input-wrap">
+      <mat-form-field appearance="fill">
+        <mat-label>
+          Digite a quantidade de {{ food.name }} em gramas
+        </mat-label>
+        <input
+          type="text"
+          formControlName="foodAmount"
+          id="food-amount"
+          matInput
+        />
+      </mat-form-field>
+      <button>Confirmar</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,26 @@
+.container {
+  height: 100vh;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #fff;
+}
+
+.input-wrap mat-form-field {
+  width: 100%;
+}
+
+.container mat-form-field input {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.close-button button,
+.edit-button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
