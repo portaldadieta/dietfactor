@@ -23,7 +23,7 @@
 
 .my-diets-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   gap: 10px;
   overflow-y: auto;
@@ -36,6 +36,7 @@
   box-shadow: none;
   color: #383e49;
   transition: background 0.2s;
+  width: 20rem;
   max-width: 23.75rem;
   &:hover {
     cursor: pointer;
@@ -74,7 +75,7 @@
   border-width: 0;
 }
 
-@media (max-width: 1152px) {
+@media (max-width: 1380px) {
   .my-diets-container {
     grid-template-columns: repeat(2, 1fr);
   }
