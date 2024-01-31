@@ -1,15 +1,10 @@
 .container {
-  background-color: #F0F1F3;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-}
-.split {
-  width: 50%;
-  z-index: 1;
-  overflow-x: hidden;
-  padding-top: 20px;
+  padding: 2rem;
+  gap: 1.5rem;
+  background-color: #f0f1f3;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
 }
 
 .logo {
@@ -20,6 +15,7 @@
   color: #003465;
   margin-left: 1rem;
 }
+
 .logo-subtitle {
   font-size: x-large;
   font-weight: lighter;
@@ -34,6 +30,21 @@
     color: #003465;
     font-weight: 500;
   }
+}
+
+.form-field-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.button-container button {
+  background-color: #003465;
+  color: #fff;
+}
+
+.button-container button:disabled {
+  background-color: #a3a3a3;
+  cursor: not-allowed;
 }
 
 .logo-text {
@@ -70,8 +81,6 @@ button {
   text-align: center;
   font-weight: lighter;
   border-radius: 4px;
-  background-color: #003465 !important;
-  color: #fff !important;
 }
 
 a {
@@ -93,7 +102,8 @@ p {
     justify-content: center;
     align-items: center;
   }
-  .logo, .login {
+  .logo,
+  .login {
     height: fit-content;
     overflow-y: hidden;
   }

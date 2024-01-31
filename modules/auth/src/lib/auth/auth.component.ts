@@ -20,10 +20,16 @@ import { Router } from '@angular/router';
   styleUrl: './auth.component.scss',
 })
 export class AuthComponent {
+  private REGISTER_ROUTE = '/register';
+  private DASHBOARD_ROUTE = '/';
+
   constructor(private router: Router) {}
 
-  /* botão temporariamente redirecionando para a home */
-  redirectToRoute() {
-    this.router.navigate(['/']);
+  redirectToDashBoard(): void {
+    this.router.navigate([`${this.DASHBOARD_ROUTE}`]);
+  }
+
+  redirectToRegister(): void {
+    this.router.navigate([`${this.REGISTER_ROUTE}`]);
   }
 }
