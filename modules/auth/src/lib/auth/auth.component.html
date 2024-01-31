@@ -30,8 +30,8 @@
       <mat-card-title class="login-title">Acesse a plataforma</mat-card-title>
       <mat-card-content>
         <mat-form-field appearance="fill">
-          <mat-label>E-mail</mat-label>
-          <input matInput placeholder="Email" />
+          <mat-label>E-mail ou CPF</mat-label>
+          <input matInput placeholder="Email ou CPF" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -39,7 +39,7 @@
           <input matInput type="password" placeholder="Senha" />
         </mat-form-field>
 
-        <button mat-raised-button (click)="redirectToRoute()">Login</button>
+        <button mat-raised-button (click)="redirectToDashBoard()">Login</button>
 
         <div class="separator">
           <div class="line"></div>
@@ -49,7 +49,7 @@
 
         <a href="#" class="forgot-password">Esqueceu a senha?</a>
 
-        <button mat-stroked-button (click)="redirectToRoute()">
+        <button mat-stroked-button (click)="redirectToRegister()">
           Não tem uma conta? Cadastre-se!
         </button>
       </mat-card-content>

@@ -52,6 +52,7 @@ mat-form-field {
 
 .button-container button:disabled {
   background-color: #a3a3a3;
+  cursor: not-allowed;
 }
 
 .add-meal,
