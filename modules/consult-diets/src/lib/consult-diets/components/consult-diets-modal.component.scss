@@ -2,11 +2,13 @@
   height: 100vh;
   padding: 2.5rem;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: rgba(0, 93, 231, 0.28);
+  gap: 2rem;
+  background-color: #fff;
 }
-
+canvas{
+  width: 300px;
+  height: 300px;
+}
 .form-header {
   display: flex;
   justify-content: space-between;

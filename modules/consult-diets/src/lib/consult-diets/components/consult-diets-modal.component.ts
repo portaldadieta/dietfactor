@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -11,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Diet } from '../../interfaces/diet.interface';
+import Chart from 'chart.js/auto';
 const MATERIAL_MODULES = [MatFormFieldModule, MatInputModule, MatIconModule];
 
 @Component({
@@ -27,6 +29,7 @@ const MATERIAL_MODULES = [MatFormFieldModule, MatInputModule, MatIconModule];
 })
 export class ConsultDietsModalComponent implements OnInit {
   dietInformationForm!: FormGroup;
+  otherChart: any = [];
 
   constructor(
     public modal: MatDialogRef<ConsultDietsModalComponent>,
@@ -36,6 +39,41 @@ export class ConsultDietsModalComponent implements OnInit {
   ngOnInit(): void {
     this.initializeDietInformationForm();
     this.setDietInformationFormValues();
+    this.otherChart = new Chart('otherChart', {
+      type: 'doughnut',
+      data: {
+        labels: ['proteinas', 'gorduras', 'calorias', 'carboidratos'],
+        datasets: [
+          {
+            data: [87, 80, 79, 81],
+            borderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Alimentação',
+          },
+        },
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'linear',
+            from: 0.5,
+            to: 0,
+            loop: true
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   }
 
   initializeDietInformationForm(): void {

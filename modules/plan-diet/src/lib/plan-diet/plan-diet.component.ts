@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FoodAmountModalComponent } from './components/food-amount-modal.component';
 import { Subscription } from 'rxjs';
 
+
 import {
   DragDropModule,
   CdkDragDrop,
@@ -62,6 +63,7 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   dinnerSelectedFoods: Food[] = [];
   snackSelectedFoods: Food[] = [];
   breakfastSelectedFoods: Food[] = [];
+  chart = [];
   subscription!: Subscription | undefined;
 
   constructor(private dialog: MatDialog) {}

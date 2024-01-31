@@ -1,3 +1,41 @@
 .home-container {
-    height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 3rem;
+}
+.example-card {
+  max-width: 100%;
+  box-shadow: none;
+}
+mat-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+.example-header-image {
+  background-image: url('../../../../../src/assets/images/mulher-bonita.jpg');
+  background-size: cover;
+}
+.weigth-data {
+    display: flex;
+    align-items: center;
+}
+.chart-container {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+  width: 70%;
+}
+
+.label-chart {
+  display: flex;
+    align-items: center;
+  p {
+    margin: 0;
+  }
+}
+canvas {
+    background-color: #fff;
 }
