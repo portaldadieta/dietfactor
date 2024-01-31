@@ -42,10 +42,10 @@ export class ConsultDietsModalComponent implements OnInit {
     this.otherChart = new Chart('otherChart', {
       type: 'doughnut',
       data: {
-        labels: ['proteinas', 'gorduras', 'calorias', 'carboidratos'],
+        labels: ['proteinas', 'gorduras', 'kcal', 'carboidratos'],
         datasets: [
           {
-            data: [87, 80, 79, 81],
+            data: [this.dietInfo.protein, this.dietInfo.fat, this.dietInfo.kcal, this.dietInfo.carbs],
             borderWidth: 2,
           },
         ],

@@ -11,7 +11,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { FoodAmountModalComponent } from './components/food-amount-modal.component';
 import { Subscription } from 'rxjs';
 
-
 import {
   DragDropModule,
   CdkDragDrop,
@@ -63,7 +62,6 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   dinnerSelectedFoods: Food[] = [];
   snackSelectedFoods: Food[] = [];
   breakfastSelectedFoods: Food[] = [];
-  chart = [];
   subscription!: Subscription | undefined;
 
   constructor(private dialog: MatDialog) {}
@@ -161,6 +159,21 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   }
 
   dropFood(event: CdkDragDrop<Food[]>): void {
+    const index: number = event.container.data.findIndex(
+      (food) =>
+        food.name === event.previousContainer.data[event.previousIndex].name
+    );
+
+    if (index !== -1 && event.container.id === 'possibleFoods') {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else if (index !== -1) {
+      return;
+    }
+
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -189,11 +202,23 @@ export class PlanDietComponent implements OnInit, OnDestroy {
     return !isNaN(Number(value)) && isFinite(Number(value));
   }
 
-  openFoodAmountModal(food: Food): void {
-    this.dialog.open(FoodAmountModalComponent, {
+  openFoodAmountModal(food: Food, selectedFoods: Food[]): void {
+    const foodAmountDialog = this.dialog.open(FoodAmountModalComponent, {
       width: '400px',
       height: '300px',
       data: food,
+    });
+    foodAmountDialog.afterClosed().subscribe((foodAmount) => {
+      if (foodAmount === undefined) {
+        return;
+      }
+      const index: number = selectedFoods.findIndex(
+        (f) => f.name === food.name
+      );
+      selectedFoods[index] = {
+        ...selectedFoods[index],
+        amount: foodAmount,
+      };
     });
   }
 }
@@ -204,4 +229,5 @@ interface Food {
   protein: number;
   carbs: number;
   fat: number;
+  amount?: string;
 }

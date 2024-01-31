@@ -1,5 +1,4 @@
 .container {
-  height: 100vh;
   display: flex;
   gap: 1rem;
   overflow: hidden;
@@ -40,14 +39,19 @@ mat-form-field {
 }
 
 .button-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-.button-container {
   margin-top: 1rem;
-  justify-content: flex-end;
+  display: grid;
+  place-content: end;
+  width: 95%;
+}
+
+.button-container button {
+  background-color: #003465;
+  color: #fff;
+}
+
+.button-container button:disabled {
+  background-color: #a3a3a3;
 }
 
 .add-meal,
@@ -75,13 +79,13 @@ h2 {
 }
 
 .foods-to-select-container {
-  border: 1px solid #f0f1f3;
   min-width: 0%;
   padding: 0.5rem;
   background-color: #fff;
   border-radius: 8px;
   height: fit-content;
   width: fit-content;
+  border: 1px solid #ccc;
 }
 
 .possible-meals-container {
@@ -98,7 +102,7 @@ h2 {
 }
 
 .selected-food-list {
-  border: 1px solid #f0f1f3;
+  border: solid 1px #ccc;
   padding: 1rem;
   min-height: 300px;
   background: white;
@@ -114,7 +118,7 @@ h2 {
   gap: 2rem;
 }
 
-.diet-not-found {
+.food-not-found {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -125,7 +129,13 @@ h2 {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    padding: 1rem 0.5rem 1rem 1rem;
   }
+}
+
+.food-amount {
+  color: #6d6c6c;
+  font-style: italic;
 }
 
 .cdk-drop-list-dragging .cdk-drag {

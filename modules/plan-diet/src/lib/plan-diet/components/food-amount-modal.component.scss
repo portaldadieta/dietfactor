@@ -7,6 +7,15 @@
   background-color: #fff;
 }
 
+.title-close-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-wrap {
+  margin-bottom: 0.3rem;
+}
+
 .input-wrap mat-form-field {
   width: 100%;
 }
@@ -17,8 +26,7 @@
   text-wrap: nowrap;
 }
 
-.close-button button,
-.edit-button {
+.close-button button {
   background: none;
   border: none;
   outline: none;
