@@ -27,10 +27,9 @@ import { Router } from '@angular/router';
 })
 
 export class RegisterComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  /* botão TAMBÉM temporariamente redirecionando para a home :) */
   redirectToRoute() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/auth']);
   }
 }
