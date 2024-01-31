@@ -24,9 +24,11 @@ export class AppComponent {
     });
   }
   hiddenNavBar(): void {
-    if (this.actualRoute === RouteService.AUTH_ROUTE)
+    if (
+      this.actualRoute === RouteService.AUTH_ROUTE ||
+      this.actualRoute === RouteService.REGISTER_ROUTE
+    )
       this.showNavBar = false;
     else this.showNavBar = true;
   }
-
 }
