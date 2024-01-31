@@ -1,28 +1,40 @@
-<h2 mat-dialog-title>Detalhes do alimento</h2>
-
 <div class="container">
+  <h2 mat-dialog-title>{{data.name}}</h2>
+
   <div class="content" mat-dialog-content>
-    <h3>{{data.name}}</h3>
     <ul>
       <li>
-        <div class="divider"></div>
-        <p>Calorias: {{data.kcal}} kcal</p>
+        <mat-icon>pie_chart</mat-icon>
+        <div>
+          <p class="category_title">Calorias</p>
+          <p class="category_value">{{data.kcal}} <span>kcal</span></p>
+        </div>
       </li>
       <li>
-        <div class="divider"></div>
-        <p>Proteínas: {{data.protein}}</p>
+        <mat-icon>pie_chart</mat-icon>
+        <div>
+          <p class="category_title">Proteínas</p>
+          <p class="category_value">{{data.protein}}</p>
+        </div>
       </li>
       <li>
-        <div class="divider"></div>
-        <p>Carboidratos: {{data.carbs}}</p>
+        <mat-icon>pie_chart</mat-icon>
+        <div>
+          <p class="category_title">Carboidratos</p>
+          <p class="category_value">{{data.carbs}}</p>
+        </div>
       </li>
       <li>
-        <div class="divider"></div>
-        <p>Fator: {{data.fat}}</p>
+        <mat-icon>pie_chart</mat-icon>
+        <div>
+          <p class="category_title">Fator</p>
+          <p class="category_value">{{data.fat}}</p>
+        </div>
       </li>
     </ul>
   </div>
-  <div mat-dialog-actions>
-    <!-- <button mat-button (click)="closeModal()">Fechar</button> -->
+
+  <div class="actions" mat-dialog-actions>
+    <button mat-button (click)="closeModal()">Fechar</button>
   </div>
 </div>

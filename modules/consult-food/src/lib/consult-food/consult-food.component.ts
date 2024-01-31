@@ -9,15 +9,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ConsultFoodModalComponent } from './components/consult-food-modal.component';
+import { Food } from './interfaces/food.interface';
 
 @Component({
   selector: 'dietfactor-consult-food',
   standalone: true,
   imports: [
     CommonModule,
-    NavbarComponent, 
+    NavbarComponent,
     UiComponent,
     MatFormFieldModule,
     MatInputModule,
@@ -26,13 +32,13 @@ import { ConsultFoodModalComponent } from './components/consult-food-modal.compo
     MatCardModule,
     MatIconModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './consult-food.component.html',
   styleUrl: './consult-food.component.scss',
 })
 export class ConsultFoodComponent implements OnInit {
-  constructor (private dialog: MatDialog) {};
+  constructor(private dialog: MatDialog) {}
 
   foodSearchForm!: FormGroup;
   filteredFoods!: Food[];
@@ -54,75 +60,54 @@ export class ConsultFoodComponent implements OnInit {
   initializeStaticData(): void {
     this.allFoods = [
       {
-        name: "Maçã",
+        name: 'Maçã',
         kcal: 52,
         protein: 0.3,
         carbs: 14,
-        fat: 0.2
+        fat: 0.2,
       },
       {
-        name: "Frango grelhado",
+        name: 'Frango grelhado',
         kcal: 165,
         protein: 31,
         carbs: 0,
-        fat: 3.6
+        fat: 3.6,
       },
       {
-        name: "Arroz integral",
+        name: 'Arroz integral',
         kcal: 218,
         protein: 5,
         carbs: 45,
-        fat: 1.6
+        fat: 1.6,
       },
       {
-        name: "Espinafre cozido",
+        name: 'Espinafre cozido',
         kcal: 23,
         protein: 2.9,
         carbs: 3.6,
-        fat: 0.3
+        fat: 0.3,
       },
       {
-        name: "Salmão assado",
-        kcal: 206,
-        protein: 22,
-        carbs: 0,
-        fat: 13
-      },
-      {
-        name: "Banana",
-        kcal: 105,
-        protein: 1.3,
-        carbs: 27,
-        fat: 0.3
-      },
-      {
-        name: "Ovo cozido",
-        kcal: 68,
-        protein: 5.5,
-        carbs: 0.6,
-        fat: 4.8
-      },
-      {
-        name: "Aveia em flocos",
+        name: 'Aveia em flocos',
         kcal: 68,
         protein: 2.4,
         carbs: 12,
-        fat: 1.4
+        fat: 1.4,
       },
       {
-        name: "Cenoura crua",
+        name: 'Cenoura crua',
         kcal: 41,
         protein: 0.9,
         carbs: 10,
-        fat: 0.2
+        fat: 0.2,
       },
       {
-        name: "Iogurte grego",
+        name: 'Iogurte grego',
         kcal: 59,
         protein: 10,
         carbs: 3.6,
-        fat: 0.4
-      }
+        fat: 0.4,
+      },
     ];
 
     this.filteredFoods = [...this.allFoods];
@@ -147,18 +132,10 @@ export class ConsultFoodComponent implements OnInit {
   }
 
   openDialog(food: Food): void {
-    const modal = this.dialog.open(ConsultFoodModalComponent, {
-      width: '350px',
-      height: '300px',
-      data: food
-    })
+    this.dialog.open(ConsultFoodModalComponent, {
+      width: '380px',
+      height: '400px',
+      data: food,
+    });
   }
-}
-
-interface Food {
-  name: string;
-  kcal: number;
-  protein: number;
-  carbs: number;
-  fat: number;
 }

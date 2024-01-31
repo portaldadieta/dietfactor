@@ -6,10 +6,10 @@
 }
 .form-container {
   width: 100%;
+  padding: 6rem 3rem 3rem;
 }
 form {
   display: grid;
-  padding-top: 1rem;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(4, 80px);
   grid-column-gap: 1rem;
