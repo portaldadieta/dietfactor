@@ -1,7 +1,6 @@
-export interface Diet {
+export interface Food {
   name: string;
   kcal: number;
-  goal: 'Bulking' | 'Cutting' | 'Manutenção';
   protein: number;
   carbs: number;
   fat: number;

@@ -2,11 +2,6 @@
   <form [formGroup]="dietInformationForm">
     <header class="form-header">
       <h2>Informações Básicas</h2>
-      <div class="close-button">
-        <button (click)="closeDietInfoModal()">
-          <mat-icon> close </mat-icon>
-        </button>
-      </div>
     </header>
     <div class="basic-info-container">
       <mat-form-field appearance="fill">
@@ -58,9 +53,5 @@
       </mat-form-field>
     </div>
   </form>
-  <footer>
-    <button class="edit-button">
-      <mat-icon> edit </mat-icon>
-    </button>
-  </footer>
+  <canvas id="otherChart">{{ otherChart }}</canvas>
 </div>

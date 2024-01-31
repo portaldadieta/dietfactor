@@ -1,6 +1,6 @@
 <div class="container">
   <main class="diet-container">
-    <form [formGroup]="dietSearchForm">
+    <form [formGroup]="dietSearchForm" class="form-container">
       <h1 class="title">Minhas dietas ( {{ filteredDiets.length }} )</h1>
       <mat-form-field appearance="fill" class="diet-search">
         <mat-label>Dietas...</mat-label>
@@ -17,7 +17,7 @@
 
     <section class="my-diets-container">
       @for(diet of filteredDiets; track diet) {
-      <mat-card class="diet-card">
+      <mat-card class="diet-card" (click)="openDietInfoModal(diet)">
         <mat-card-header>
           <mat-card-title-group>
             <mat-card-title>{{ diet.name }}</mat-card-title>

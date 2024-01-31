@@ -1,36 +1,42 @@
 .container {
-  height: 100vh;
   display: flex;
   gap: 1rem;
   overflow: hidden;
 }
 
-form, mat-form-field {
-  width: 100%;
+.form-container {
   text-align: center;
 }
+
+.food-search {
+  width: 50%;
+}
+
 .food-container {
-  width: 100%;
-  place-content: space-evenly;
+  margin: 0 auto;
+  padding: 6rem 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  place-content: flex-start;
 }
 
 .my-foods-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  gap: 14px;
   overflow-y: auto;
 }
-mat-card {
-  border: none;
-  box-shadow: none;
-}
+
 .food-card {
   padding: 6px 12px;
   border-radius: 8px;
-  background: #FFF;  
-  color: #383E49;
+  background: #fff;
+  box-shadow: none;
+  color: #383e49;
+  transition: background 0.2s;
+  width: 20rem;
+  max-width: 23.75rem;
   &:hover {
     cursor: pointer;
     background: rgba(0, 93, 231, 0.28);
@@ -40,6 +46,19 @@ mat-card {
     text-align: left;
     width: 100%;
     padding: 0;
+  }
+}
+
+.food-not-found {
+  grid-column: 1 / -1;
+  margin-top: 4.5rem;
+  .not-found-message {
+    font-size: 1.3rem;
+    font-style: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
   }
 }
 
@@ -53,4 +72,16 @@ mat-card {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+@media (max-width: 1380px) {
+  .my-foods-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .my-foods-container {
+    grid-template-columns: 1fr;
+  }
 }
