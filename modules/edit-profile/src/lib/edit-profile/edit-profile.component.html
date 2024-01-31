@@ -1,14 +1,10 @@
 <div class="edit-profile-container">
   <div class="form-container">
-    <h1>Editar seu perfil</h1>
+    <h1>Editar Perfil</h1>
     <form [formGroup]="form">
       <mat-form-field class="email-grid">
         <mat-label>E-mail</mat-label>
-        <input
-          placeholder="dietfactor@example.com"
-          formControlName="email"
-          matInput
-        />
+        <input placeholder="pat@example.com" formControlName="email" matInput />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Nome</mat-label>
@@ -19,35 +15,35 @@
         <input matInput formControlName="surname" />
       </mat-form-field>
       <mat-form-field class="birthday-grid">
-        <mat-label>Data de Nascimento</mat-label>
+        <mat-label>Data de nascimento</mat-label>
         <input matInput [matDatepicker]="datepicker" />
-        <mat-hint>DD/MM/AAAA</mat-hint>
+        <mat-hint>dd/mm/aaaa</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
           [for]="datepicker"
         ></mat-datepicker-toggle>
         <mat-datepicker #datepicker>
           <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-button matDatepickerCancel>Cancelar</button>
             <button mat-raised-button color="primary" matDatepickerApply>
-              Apply
+              Confirmar
             </button>
           </mat-datepicker-actions>
         </mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Altura</mat-label>
+        <mat-label>Altura (em cm)</mat-label>
         <input matInput formControlName="height" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Peso</mat-label>
+        <mat-label>Peso (em kg)</mat-label>
         <input matInput formControlName="weigth" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Sexo</mat-label>
         <mat-select formControlName="gender">
-          <mat-option value="one">Masculino</mat-option>
-          <mat-option value="two">Feminino</mat-option>
+          <mat-option value="one">Feminino</mat-option>
+          <mat-option value="two">Masculino</mat-option>
         </mat-select>
       </mat-form-field>
     </form>
