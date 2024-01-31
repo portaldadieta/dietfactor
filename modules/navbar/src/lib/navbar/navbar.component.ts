@@ -15,6 +15,11 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
 export class NavbarComponent {
   navBarButtons = [
     {
+      title: 'home',
+      router: '/home',
+      icon: 'home'
+    },
+    {
       title: 'minhas dietas',
       router: '/consult-diets',
       icon: 'fastfood'
