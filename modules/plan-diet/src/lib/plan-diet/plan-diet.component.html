@@ -67,10 +67,10 @@
             (cdkDropListDropped)="dropFood($event)"
             id="possibleFoods"
           >
-            @for (item of filteredFoods; track item) {
-            <mat-chip cdkDrag>{{ item.name }}</mat-chip>
+            @for (food of filteredFoods; track food) {
+            <mat-chip cdkDrag>{{ food.name }}</mat-chip>
             } @empty {
-            <div class="diet-not-found">
+            <div class="food-not-found">
               <p class="not-found-message">
                 Não foram encontrados alimentos com esse nome
                 <mat-icon> sentiment_very_dissatisfied </mat-icon>
@@ -99,10 +99,22 @@
               (cdkDropListDropped)="dropFood($event)"
             >
               @for (food of breakfastSelectedFoods; track food) {
-              <mat-chip cdkDrag (click)="openFoodAmountModal(food)">{{
-                food.name
-              }}</mat-chip>
-              }
+              @if(food.amount) {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, breakfastSelectedFoods)"
+              >
+                {{ food.name }} -
+                <span class="food-amount">{{ food.amount }}gr</span></mat-chip
+              >
+              } @else {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, breakfastSelectedFoods)"
+              >
+                {{ food.name }}
+              </mat-chip>
+              } }
             </mat-chip-set>
           </div>
         </div>
@@ -122,11 +134,20 @@
               class="selected-food-list mat-mdc-chip-set-stacked"
               (cdkDropListDropped)="dropFood($event)"
             >
-              @for (food of snackSelectedFoods; track food) {
-              <mat-chip cdkDrag (click)="openFoodAmountModal(food)">{{
-                food.name
-              }}</mat-chip>
-              }
+              @for (food of snackSelectedFoods; track food) { @if(food.amount) {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, snackSelectedFoods)"
+                >{{ food.name }} -
+                <span class="food-amount">{{ food.amount }}gr</span></mat-chip
+              >
+              } @else {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, snackSelectedFoods)"
+                >{{ food.name }}</mat-chip
+              >
+              }}
             </mat-chip-set>
           </div>
         </div>
@@ -147,11 +168,20 @@
               class="selected-food-list mat-mdc-chip-set-stacked"
               (cdkDropListDropped)="dropFood($event)"
             >
-              @for (food of lunchSelectedFoods; track food) {
-              <mat-chip cdkDrag (click)="openFoodAmountModal(food)">{{
-                food.name
-              }}</mat-chip>
-              }
+              @for (food of lunchSelectedFoods; track food) { @if(food.amount) {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, lunchSelectedFoods)"
+                >{{ food.name }} -
+                <span class="food-amount">{{ food.amount }}gr</span></mat-chip
+              >
+              } @else {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, lunchSelectedFoods)"
+                >{{ food.name }}</mat-chip
+              >
+              } }
             </mat-chip-set>
           </div>
         </div>
@@ -172,32 +202,28 @@
               class="selected-food-list mat-mdc-chip-set-stacked"
               (cdkDropListDropped)="dropFood($event)"
             >
-              @for (food of dinnerSelectedFoods; track food) {
-              <mat-chip cdkDrag (click)="openFoodAmountModal(food)">{{
-                food.name
-              }}</mat-chip>
-              }
+              @for (food of dinnerSelectedFoods; track food) { @if(food.amount)
+              {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, dinnerSelectedFoods)"
+                >{{ food.name }} -
+                <span class="food-amount">{{ food.amount }}gr</span></mat-chip
+              >
+              } @else {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, dinnerSelectedFoods)"
+                >{{ food.name }}</mat-chip
+              >
+              } }
             </mat-chip-set>
           </div>
         </div>
       </div>
-
-      <!-- <mat-form-field class="small-dropdown">
-        <mat-label>Refeições</mat-label>
-        <mat-select appearance="fill">
-          <mat-option value="cafe">Café da Manhã</mat-option>
-          <mat-option value="almoco">Almoço</mat-option>
-          <mat-option value="jantar">Jantar</mat-option>
-          <mat-option value="lanche">Lanche</mat-option>
-        </mat-select>
-      </mat-form-field> -->
       <div class="button-container">
-        <button
-          [disabled]="!dietPlanForm.valid"
-          mat-raised-button
-          class="create-diet"
-        >
-          Criar
+        <button [disabled]="!dietPlanForm.valid" mat-raised-button class="">
+          Criar dieta
         </button>
       </div>
     </form>

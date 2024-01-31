@@ -3,19 +3,23 @@
     <h1>Editar seu perfil</h1>
     <form [formGroup]="form">
       <mat-form-field class="email-grid">
-        <mat-label>email</mat-label>
-        <input placeholder="pat@example.com" formControlName="email" matInput />
+        <mat-label>E-mail</mat-label>
+        <input
+          placeholder="dietfactor@example.com"
+          formControlName="email"
+          matInput
+        />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>nome</mat-label>
+        <mat-label>Nome</mat-label>
         <input formControlName="name" matInput />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>sobrenome</mat-label>
+        <mat-label>Sobrenome</mat-label>
         <input matInput formControlName="surname" />
       </mat-form-field>
       <mat-form-field class="birthday-grid">
-        <mat-label>data de nascimento</mat-label>
+        <mat-label>Data de Nascimento</mat-label>
         <input matInput [matDatepicker]="datepicker" />
         <mat-hint>DD/MM/AAAA</mat-hint>
         <mat-datepicker-toggle
@@ -32,22 +36,21 @@
         </mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>altura</mat-label>
+        <mat-label>Altura</mat-label>
         <input matInput formControlName="height" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>peso</mat-label>
+        <mat-label>Peso</mat-label>
         <input matInput formControlName="weigth" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>sexo</mat-label>
+        <mat-label>Sexo</mat-label>
         <mat-select formControlName="gender">
-          <mat-option value="one">masculino</mat-option>
-          <mat-option value="two">feminino</mat-option>
-          <mat-option value="two">coelho</mat-option>
+          <mat-option value="one">Masculino</mat-option>
+          <mat-option value="two">Feminino</mat-option>
         </mat-select>
       </mat-form-field>
     </form>
-    <button mat-flat-button color="primary">salvar</button>
+    <button mat-flat-button color="primary">Salvar</button>
   </div>
 </div>

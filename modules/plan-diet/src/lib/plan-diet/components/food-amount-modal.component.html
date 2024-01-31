@@ -1,18 +1,39 @@
 <div class="container">
   <form [formGroup]="foodAmountForm">
-    <div class="input-wrap">
+    <div class="title-close-wrap">
+      <h2 mat-dialog-title>
+        Digite a quantidade de {{ food.name }} em gramas:
+      </h2>
+      <div class="close-button">
+        <button (click)="closeFoodAmountModal()">
+          <mat-icon> close </mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="input-wrap" mat-dialog-content>
       <mat-form-field appearance="fill">
-        <mat-label>
-          Digite a quantidade de {{ food.name }} em gramas
-        </mat-label>
+        <mat-label> Quantidade... </mat-label>
         <input
           type="text"
           formControlName="foodAmount"
           id="food-amount"
           matInput
         />
+        @if(foodAmount?.invalid) {
+        <mat-error>Por favor, insira um número válido.</mat-error>
+        }
       </mat-form-field>
-      <button>Confirmar</button>
+    </div>
+    <div mat-dialog-actions>
+      <button
+        [disabled]="!foodAmountForm.valid"
+        mat-raised-button
+        color="primary"
+        (click)="submitFoodAmount()"
+      >
+        Confirmar
+      </button>
     </div>
   </form>
 </div>
