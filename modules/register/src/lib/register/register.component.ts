@@ -19,8 +19,7 @@ import {
 import { RegisterService } from '../services/register.service';
 import { HttpClientModule } from '@angular/common/http';
 import { catchError, tap, throwError } from 'rxjs';
-import { userInfo } from '../interfaces/user-info.interface'
-
+import { userInfo } from '../interfaces/user-info.interface';
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -42,6 +41,7 @@ const MATERIAL_MODULES = [
     ...MATERIAL_MODULES,
   ],
   providers: [
+    RegisterService,
     provideNativeDateAdapter(),
     {
       provide: MAT_DATE_LOCALE,
@@ -55,7 +55,10 @@ export class RegisterComponent implements OnInit {
   private AUTH_ROUTE = '/auth';
   registerForm!: FormGroup;
 
-  constructor(private router: Router, private registerService: RegisterService ) {}
+  constructor(
+    private router: Router,
+    private registerService: RegisterService
+  ) {}
 
   ngOnInit(): void {
     this.initializeRegisterFormGroup();
@@ -92,15 +95,18 @@ export class RegisterComponent implements OnInit {
     console.log('clicou');
     console.log(request);
 
-    this.registerService.createUser(request).pipe(
-      tap((data) => {
-        console.log('Usuário Cadastrado:', data)
-      }),
-      catchError((error) => {
-        console.log(`Ocorreu um erro: ${error}`);
-        return throwError(() => new Error(error));
-      })
-    ).subscribe();
+    this.registerService
+      .createUser(request)
+      .pipe(
+        tap((data) => {
+          console.log('Usuário Cadastrado:', data);
+        }),
+        catchError((error) => {
+          console.log(`Ocorreu um erro: ${error}`);
+          return throwError(() => new Error(error));
+        })
+      )
+      .subscribe();
   }
 
   redirectToLogin() {
