@@ -16,8 +16,11 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RegisterService } from '../services/register.service';
+import { HttpClientModule } from '@angular/common/http';
 import { catchError, tap, throwError } from 'rxjs';
+import { userInfo } from '../interfaces/user-info.interface'
+
 
 const MATERIAL_MODULES = [
   MatInputModule,
@@ -52,7 +55,7 @@ export class RegisterComponent implements OnInit {
   private AUTH_ROUTE = '/auth';
   registerForm!: FormGroup;
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private registerService: RegisterService ) {}
 
   ngOnInit(): void {
     this.initializeRegisterFormGroup();
@@ -75,7 +78,7 @@ export class RegisterComponent implements OnInit {
   }
 
   signUp() {
-    const request = {
+    const request: userInfo = {
       name: `${this.registerForm.get('name')?.value} ${
         this.registerForm.get('surname')?.value
       }`,
@@ -87,22 +90,17 @@ export class RegisterComponent implements OnInit {
     };
 
     console.log('clicou');
-
     console.log(request);
 
-    this.http
-      .post('http://localhost:3000/users', request)
-      .pipe(
-        tap((data) => {
-          console.log('Cadastrado:', data);
-        }),
-        catchError((error) => {
-          console.error(`Ocorreu um erro: ${error}`);
-
-          return throwError(() => new Error(error));
-        })
-      )
-      .subscribe();
+    this.registerService.createUser(request).pipe(
+      tap((data) => {
+        console.log('Usuário Cadastrado:', data)
+      }),
+      catchError((error) => {
+        console.log(`Ocorreu um erro: ${error}`);
+        return throwError(() => new Error(error));
+      })
+    ).subscribe();
   }
 
   redirectToLogin() {
