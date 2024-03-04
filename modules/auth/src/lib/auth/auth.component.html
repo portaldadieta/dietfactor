@@ -25,21 +25,26 @@
     </div>
   </section>
 
-  <section class="split login">
+  <form class="split login" [formGroup]="loginForm">
     <mat-card>
       <mat-card-title class="login-title">Acesse a plataforma</mat-card-title>
       <mat-card-content>
         <mat-form-field appearance="fill">
           <mat-label>E-mail ou CPF</mat-label>
-          <input matInput placeholder="Email ou CPF" />
+          <input matInput placeholder="Email" formControlName="email" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Senha</mat-label>
-          <input matInput type="password" placeholder="Senha" />
+          <input
+            matInput
+            type="password"
+            placeholder="Senha"
+            formControlName="password"
+          />
         </mat-form-field>
 
-        <button mat-raised-button (click)="redirectToDashBoard()">Login</button>
+        <button mat-raised-button (click)="handleLogin()">Login</button>
 
         <div class="separator">
           <div class="line"></div>
@@ -49,10 +54,14 @@
 
         <a href="#" class="forgot-password">Esqueceu a senha?</a>
 
-        <button mat-stroked-button (click)="redirectToRegister()">
+        <button
+          [disabled]="!loginForm.valid"
+          mat-stroked-button
+          (click)="redirectToRegister()"
+        >
           Não tem uma conta? Cadastre-se!
         </button>
       </mat-card-content>
     </mat-card>
-  </section>
+  </form>
 </div>
