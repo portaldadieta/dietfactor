@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IAuth } from '../interfaces/IAuth.interface';
 import { catchError, tap, throwError } from 'rxjs';
@@ -8,7 +8,7 @@ import { IResponse } from '../interfaces/IResponse.interface';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private httpClient: HttpClient) {}
+  httpClient: HttpClient = inject(HttpClient)
 
   static dietFactorURL = 'http://localhost:3000';
 
