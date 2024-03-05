@@ -24,5 +24,5 @@ interface Food {
   kcal: number;
   protein: number;
   carbs: number;
-  fat: number;
+  fats: number;
 }

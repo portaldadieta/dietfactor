@@ -8,8 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
 import { FoodAmountModalComponent } from './components/food-amount-modal.component';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { PlanDietService } from '../services/plan-diet.service';
 
 import {
   DragDropModule,
@@ -35,6 +38,7 @@ const MATERIAL_MODULES = [
   MatButtonModule,
   MatIconModule,
   MatChipsModule,
+  MatCardModule,
 ];
 
 @Component({
@@ -48,9 +52,10 @@ const MATERIAL_MODULES = [
     DragDropModule,
     CdkDropList,
     CdkDrag,
+    HttpClientModule,
     ...MATERIAL_MODULES,
   ],
-  providers: [MatDialog],
+  providers: [MatDialog, PlanDietService],
   templateUrl: './plan-diet.component.html',
   styleUrl: './plan-diet.component.scss',
 })
@@ -64,10 +69,10 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   breakfastSelectedFoods: Food[] = [];
   subscription!: Subscription | undefined;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private planDietService: PlanDietService) {}
 
   ngOnInit(): void {
-    this.initializeStaticData();
+    this.initializeAllFoodsData();
     this.initializeDietPlanForm();
     this.myFoodsFiltered();
   }
@@ -85,60 +90,16 @@ export class PlanDietComponent implements OnInit, OnDestroy {
     });
   }
 
-  initializeStaticData(): void {
-    this.allFoods = [
-      {
-        name: 'Maçã',
-        kcal: 52,
-        protein: 0.3,
-        carbs: 14,
-        fat: 0.2,
-      },
-      {
-        name: 'Frango grelhado',
-        kcal: 165,
-        protein: 31,
-        carbs: 0,
-        fat: 3.6,
-      },
-      {
-        name: 'Arroz integral',
-        kcal: 218,
-        protein: 5,
-        carbs: 45,
-        fat: 1.6,
-      },
-      {
-        name: 'Espinafre cozido',
-        kcal: 23,
-        protein: 2.9,
-        carbs: 3.6,
-        fat: 0.3,
-      },
-      {
-        name: 'Aveia em flocos',
-        kcal: 68,
-        protein: 2.4,
-        carbs: 12,
-        fat: 1.4,
-      },
-      {
-        name: 'Cenoura crua',
-        kcal: 41,
-        protein: 0.9,
-        carbs: 10,
-        fat: 0.2,
-      },
-      {
-        name: 'Iogurte grego',
-        kcal: 59,
-        protein: 10,
-        carbs: 3.6,
-        fat: 0.4,
-      },
-    ];
-
-    this.filteredFoods = [...this.allFoods];
+  initializeAllFoodsData(): void {
+    this.planDietService
+          .getAllFoods()
+          .pipe(finalize(() => { 
+            this.filteredFoods = [...this.allFoods];
+            console.log(this.filteredFoods);
+          }))
+          .subscribe(res => {
+             this.allFoods = res;
+          });
   }
 
   myFoodsFiltered(): void {
@@ -228,6 +189,6 @@ interface Food {
   kcal: number;
   protein: number;
   carbs: number;
-  fat: number;
+  fats: number;
   amount?: string;
 }

@@ -1,7 +1,7 @@
 <div class="container">
   <main class="food-container">
     <form [formGroup]="foodSearchForm" class="form-container">
-      <h1 class="title">Consultar alimentos ( {{ filteredFoods.length }} )</h1>
+      <h1 class="title">Consultar alimentos ( {{ filteredFoods?.length }} )</h1>
       <mat-form-field appearance="fill" class="food-search">
         <mat-label>Alimentos...</mat-label>
         <label class="sr-only" for="search-food">Consultar alimentos</label>
@@ -20,17 +20,17 @@
       <mat-card class="food-card" (click)="openDialog(food)">
         <mat-card-header>
           <mat-card-title-group>
-            <mat-card-title>{{ food.name }}</mat-card-title>
+            <mat-card-title>{{ food?.name }}</mat-card-title>
           </mat-card-title-group>
           <mat-icon> restaurant_menu </mat-icon>
         </mat-card-header>
 
         <mat-card-content>
           <ul>
-            <li>Total kcal: {{ food.kcal }}</li>
+            <li>Total kcal: {{ food?.kcal }}</li>
             <li>
-              Macros (gr): {{ food.protein }} p / {{ food.carbs }} c /
-              {{ food.fat }} g
+              Macros (gr): {{ food?.protein }} p / {{ food?.carbs }} c /
+              {{ food?.fats }} g
             </li>
           </ul>
         </mat-card-content>

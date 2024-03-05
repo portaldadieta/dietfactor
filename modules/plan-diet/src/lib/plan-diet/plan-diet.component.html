@@ -1,5 +1,7 @@
 <div class="container">
   <main class="diet-container">
+
+
     <form [formGroup]="dietPlanForm" class="form-container">
       <h1 class="title">Planejar dieta</h1>
 
@@ -63,7 +65,7 @@
               breakfastFoodSelected
             ]"
             [cdkDropListData]="filteredFoods"
-            cdkDropListOrientation="horizontal"
+            cdkDropListOrientation="vertical"
             (cdkDropListDropped)="dropFood($event)"
             id="possibleFoods"
           >
@@ -221,10 +223,27 @@
           </div>
         </div>
       </div>
-      <div class="button-container">
-        <button [disabled]="!dietPlanForm.valid" mat-raised-button class="">
-          Criar dieta
-        </button>
+
+      <div class="feedback-button-container">
+        <mat-card class="feedback-card">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>Objetivos da Dieta:</mat-card-title>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <p class="red">Calorias: <strong>100kcal a menos</strong></p>
+            <p class="green">Proteínas: <strong>atingiu a meta!</strong></p>
+            <p class="red">Gorduras: <strong>30g a menos</strong></p>
+            <p class="red">Carboidratos: <strong>2g a menos</strong></p>
+          </mat-card-content>
+        </mat-card>
+
+        <div class="button-container">
+          <button [disabled]="!dietPlanForm.valid" mat-raised-button class="">
+            Criar dieta
+          </button>
+        </div>
       </div>
     </form>
   </main>

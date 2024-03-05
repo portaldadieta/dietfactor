@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
 import { UiComponent } from '@dietfactor/modules/shared/ui';
@@ -17,7 +17,9 @@ import {
 } from '@angular/forms';
 import { ConsultFoodModalComponent } from './components/consult-food-modal.component';
 import { Food } from './interfaces/food.interface';
-
+import { ConsultFoodService } from '../services/consult-food.service';
+import { HttpClientModule } from '@angular/common/http';
+import { finalize, Subscription } from 'rxjs';
 @Component({
   selector: 'dietfactor-consult-food',
   standalone: true,
@@ -33,22 +35,29 @@ import { Food } from './interfaces/food.interface';
     MatIconModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
   ],
+  providers:[ConsultFoodService],
   templateUrl: './consult-food.component.html',
   styleUrl: './consult-food.component.scss',
 })
-export class ConsultFoodComponent implements OnInit {
-  constructor(private dialog: MatDialog) {}
+export class ConsultFoodComponent implements OnInit, OnDestroy {
+  constructor(private dialog: MatDialog, private consultFoodService: ConsultFoodService) {}
 
   foodSearchForm!: FormGroup;
   filteredFoods!: Food[];
   filterName!: string;
   allFoods!: Food[];
-
+  subscription!: Subscription | undefined;
+  
   ngOnInit(): void {
     this.initializeFoodSearchForm();
-    this.initializeStaticData();
+    this.initializeFoodData();
     this.myFoodsFiltered();
+  }
+
+  ngOnDestroy(): void {
+      this.subscription?.unsubscribe();
   }
 
   initializeFoodSearchForm(): void {
@@ -57,62 +66,19 @@ export class ConsultFoodComponent implements OnInit {
     });
   }
 
-  initializeStaticData(): void {
-    this.allFoods = [
-      {
-        name: 'Maçã',
-        kcal: 52,
-        protein: 0.3,
-        carbs: 14,
-        fat: 0.2,
-      },
-      {
-        name: 'Frango grelhado',
-        kcal: 165,
-        protein: 31,
-        carbs: 0,
-        fat: 3.6,
-      },
-      {
-        name: 'Arroz integral',
-        kcal: 218,
-        protein: 5,
-        carbs: 45,
-        fat: 1.6,
-      },
-      {
-        name: 'Espinafre cozido',
-        kcal: 23,
-        protein: 2.9,
-        carbs: 3.6,
-        fat: 0.3,
-      },
-      {
-        name: 'Aveia em flocos',
-        kcal: 68,
-        protein: 2.4,
-        carbs: 12,
-        fat: 1.4,
-      },
-      {
-        name: 'Cenoura crua',
-        kcal: 41,
-        protein: 0.9,
-        carbs: 10,
-        fat: 0.2,
-      },
-      {
-        name: 'Iogurte grego',
-        kcal: 59,
-        protein: 10,
-        carbs: 3.6,
-        fat: 0.4,
-      },
-    ];
-
-    this.filteredFoods = [...this.allFoods];
+  initializeFoodData(): void {
+    this.consultFoodService.getFoodByAmount(21).pipe(
+      finalize(() => {
+        this.filteredFoods = [...this.allFoods]
+        console.log(this.filteredFoods);
+      })
+    ).subscribe(
+      res => {
+        this.allFoods = res;
+      }
+    );
   }
-
+ 
   myFoodsFilter(name: string): void {
     if (!name) {
       this.filteredFoods = [...this.allFoods];
@@ -126,9 +92,9 @@ export class ConsultFoodComponent implements OnInit {
   }
 
   myFoodsFiltered(): void {
-    this.foodSearchForm
+   this.subscription = this.foodSearchForm
       .get('foodName')
-      ?.valueChanges.subscribe((name) => this.myFoodsFilter(name));
+      ?.valueChanges.subscribe((name) => this.myFoodsFilter(name)) || undefined;
   }
 
   openDialog(food: Food): void {

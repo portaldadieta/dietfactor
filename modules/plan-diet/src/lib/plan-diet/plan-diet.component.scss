@@ -38,12 +38,6 @@ mat-form-field {
   width: 100%;
 }
 
-.button-container {
-  margin-top: 1rem;
-  display: grid;
-  place-content: end;
-  width: 95%;
-}
 
 .button-container button {
   background-color: #003465;
@@ -137,6 +131,31 @@ h2 {
 .food-amount {
   color: #6d6c6c;
   font-style: italic;
+}
+
+.feedback-button-container {
+  padding-left: 2.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-content: start;
+}
+
+.button-container {
+  // margin-top: 1rem;
+  // display: grid;
+  // place-content: end;
+  // width: 100%; 
+}
+
+.red {
+  color: lightcoral;
+}
+.green {
+  color: lightgreen;
+}
+
+.feedback-card {
+  width: 14.75rem;
 }
 
 .cdk-drop-list-dragging .cdk-drag {
