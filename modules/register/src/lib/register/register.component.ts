@@ -18,7 +18,7 @@ import {
 } from '@angular/forms';
 import { RegisterService } from '../services/register.service';
 import { HttpClientModule } from '@angular/common/http';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, finalize, tap, throwError } from 'rxjs';
 import { userInfo } from '../interfaces/user-info.interface';
 
 const MATERIAL_MODULES = [
@@ -101,6 +101,7 @@ export class RegisterComponent implements OnInit {
         tap((data) => {
           console.log('Usuário Cadastrado:', data);
         }),
+        finalize(() => this.redirectToLogin()),
         catchError((error) => {
           console.log(`Ocorreu um erro: ${error}`);
           return throwError(() => new Error(error));

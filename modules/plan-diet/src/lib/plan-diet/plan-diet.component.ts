@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, OnInit, ViewChild, Renderer2, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -59,7 +59,8 @@ const MATERIAL_MODULES = [
   templateUrl: './plan-diet.component.html',
   styleUrl: './plan-diet.component.scss',
 })
-export class PlanDietComponent implements OnInit, OnDestroy {
+export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('alertMessage') alertMessage!: ElementRef;
   dietPlanForm!: FormGroup;
   allFoods!: Food[];
   filteredFoods!: Food[];
@@ -68,13 +69,20 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   snackSelectedFoods: Food[] = [];
   breakfastSelectedFoods: Food[] = [];
   subscription!: Subscription | undefined;
+  totalKcal: number = 2000;
+  totalProtein: number = 160;
 
-  constructor(private dialog: MatDialog, private planDietService: PlanDietService) {}
+  constructor(private dialog: MatDialog, private renderer: Renderer2, private planDietService: PlanDietService) {}
 
   ngOnInit(): void {
     this.initializeAllFoodsData();
     this.initializeDietPlanForm();
     this.myFoodsFiltered();
+    this.handleOpenalertMessage();
+  }
+
+  ngAfterViewInit() {
+    this.handleOpenalertMessage();
   }
 
   ngOnDestroy(): void {
@@ -181,6 +189,20 @@ export class PlanDietComponent implements OnInit, OnDestroy {
         amount: foodAmount,
       };
     });
+  }
+
+  handleOpenalertMessage(): void {
+    if(this.totalKcal < 2100) {
+      setTimeout(() => {
+        this.renderer.addClass(this.alertMessage.nativeElement, 'open');
+      }, 3000);
+      setTimeout(() => { 
+        this.renderer.addClass(this.alertMessage.nativeElement, 'close');
+     }, 7000);
+     setTimeout(() => { 
+      this.renderer.removeClass(this.alertMessage.nativeElement, 'open')
+   }, 11000);
+    } 
   }
 }
 
