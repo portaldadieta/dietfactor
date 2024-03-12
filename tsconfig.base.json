@@ -21,6 +21,9 @@
       "@dietfactor/modules/auth": [
         "modules/auth/src/index.ts"
       ],
+      "@dietfactor/modules/auth/guards": [
+        "modules/auth/src/lib/guards/index.ts"
+      ],
       "@dietfactor/modules/consult-diets": [
         "modules/consult-diets/src/index.ts"
       ],
