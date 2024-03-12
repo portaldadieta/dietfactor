@@ -1,7 +1,7 @@
 <div class="container">
-  <section class="split logo">
+  <section class="logo">
     <div>
-      <div class="logo-text">
+      <div class="logo-title">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="80px"
@@ -13,7 +13,7 @@
             fill-rule="evenodd"
             clip-rule="evenodd"
             d="M12.8596 6.80422C13.1527 5.90212 14.0002 5.25 15 5.25V3.75C13.884 3.75 12.8819 4.23749 12.1949 5.01113C11.6511 4.2478 10.7587 3.75 9.75 3.75H8.25V5.25C8.25 6.08469 8.59088 6.83976 9.14102 7.38359C6.84229 8.45993 5.25 10.794 5.25 13.5C5.25 17.2279 8.27208 20.25 12 20.25C15.7279 20.25 18.75 17.2279 18.75 13.5C18.75 10.0633 16.1816 7.22647 12.8596 6.80422ZM12 8.25C9.10051 8.25 6.75 10.6005 6.75 13.5C6.75 16.3995 9.10051 18.75 12 18.75C14.8995 18.75 17.25 16.3995 17.25 13.5C17.25 10.6005 14.8995 8.25 12 8.25ZM14.25 13.5C14.25 12.2574 13.2426 11.25 12 11.25V9.75C14.0711 9.75 15.75 11.4289 15.75 13.5H14.25ZM11.25 6.75C10.4216 6.75 9.75 6.07843 9.75 5.25C10.5784 5.25 11.25 5.92157 11.25 6.75Z"
-            fill="rgb(132 196 255)"
+            fill="#003465"
           />
         </svg>
         Dietfactor
@@ -25,24 +25,24 @@
     </div>
   </section>
 
-  <form class="split login" [formGroup]="registerForm">
-    <mat-card>
-      <mat-card-title class="login-title">Faça o seu Cadastro</mat-card-title>
+  <form class="login-form" [formGroup]="registerForm">
+    <mat-card class="form-card">
+      <mat-card-title class="login-form-title">Faça o seu Cadastro</mat-card-title>
 
       <mat-card-content>
         <div class="form-field-wrapper">
-          <mat-form-field appearance="fill">
+          <mat-form-field  class="input-wrapper" appearance="fill">
             <mat-label>Nome</mat-label>
             <input matInput placeholder="Nome" formControlName="name" />
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field class="input-wrapper" appearance="fill">
             <mat-label>Sobrenome</mat-label>
             <input matInput placeholder="Sobrenome" formControlName="surname" />
           </mat-form-field>
         </div>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field  class="input-wrapper" appearance="fill">
           <mat-label>E-mail</mat-label>
           <input
             matInput
@@ -51,7 +51,7 @@
           />
         </mat-form-field>
 
-        <mat-form-field class="birthday-grid">
+        <mat-form-field class="birthday-grid input-wrapper">
           <mat-label>Data de Nascimento</mat-label>
           <input
             formControlName="bornDate"
@@ -74,18 +74,18 @@
         </mat-form-field>
 
         <div class="form-field-wrapper">
-          <mat-form-field appearance="fill">
+          <mat-form-field  class="input-wrapper" appearance="fill">
             <mat-label>Altura (em cm)</mat-label>
             <input matInput formControlName="height" placeholder='Ex.: "165"' />
           </mat-form-field>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field class="input-wrapper" appearance="fill">
             <mat-label>Peso (em kg)</mat-label>
             <input matInput formControlName="weight" placeholder='Ex.: "70"' />
           </mat-form-field>
         </div>
 
-        <mat-form-field>
+        <mat-form-field class="input-wrapper">
           <mat-label>Sexo</mat-label>
           <mat-select matInput formControlName="gender">
             <mat-option value="one">Feminino</mat-option>
@@ -93,7 +93,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field  class="input-wrapper" appearance="fill">
           <mat-label>Senha</mat-label>
           <input type="password" matInput formControlName="password" placeholder="Senha" />
         </mat-form-field>

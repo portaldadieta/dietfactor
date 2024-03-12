@@ -1,39 +1,31 @@
 .container {
-  background-color: #F0F1F3;
-  width: 100vw;
-  height: 100vh;
   display: flex;
-  justify-content: space-between;
-}
-.split {
-  width: 50%;
-  z-index: 1;
-  overflow-x: hidden;
-  padding-top: 20px;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #F0F1F3;
+  font-size: 0.8rem;
 }
 
 .logo {
-  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #003465;
-  margin-left: 1rem;
-}
-.logo-subtitle {
-  font-size: x-large;
-  font-weight: lighter;
 }
 
-.login {
-  right: 0;
+.logo-title {
   display: flex;
-  justify-content: center;
   align-items: center;
-  &-title {
-    color: #003465;
-    font-weight: 500;
-  }
+  justify-content: center;
+  font-size: 3.5rem;
+  color: #5d6679;
+}
+
+.logo-subtitle {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #003465;
 }
 
 .logo-text {
@@ -43,20 +35,28 @@
   font-size: 4rem;
 }
 
-mat-card {
-  max-width: 500px;
-  margin: auto;
-  border-radius: 0px;
+.login-form-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
   box-shadow: none;
-  border-radius: 40px;
-  background-color: #fff;
-  padding: 2rem;
+  border-radius: 8px;
+  
+  mat-label {
+    font-size: 0.6rem;
+  }
+
+  input {
+    font-size: 1rem;
+  }
 }
 
-mat-card-title {
+.login-form-title {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: x-large;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #003465;
+  font-weight: 500;
 }
 
 mat-form-field {
@@ -65,69 +65,71 @@ mat-form-field {
 }
 
 button {
-  margin: 16px 0;
   width: 100%;
-  text-align: center;
-  font-weight: lighter;
-  border-radius: 4px;
+  margin: 1rem 0;
+  padding: 1.5rem;
   background-color: #003465 !important;
   color: #fff !important;
+  text-align: center;
+  font-weight: 300;
 }
 
-.separator {
+.button-separator {
   display: flex;
   align-items: center;
   text-align: center;
   margin: 24px 0;
   color: #003465;
-}
-
-.separator .line {
-  flex-grow: 1;
-  height: 1px;
-  background-color:  #003465;
-  position: relative;
-}
-
-.separator .text {
-  padding: 0 10px;
-  position: relative;
-  z-index: 1;
-}
-
-.register {
-  display: inline;
+  &-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color:  #003465;
+    position: relative;
+  }
+  &-text {
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .forgot-password {
-  font-weight: lighter;
+  display: block;
+  text-decoration: none;
+  margin: 0.5rem 0;
+  text-align: center;
+  font-weight: 300;
   color: #003465;
 }
 
-a {
-  display: block;
-  text-align: center;
-  margin: 8px 0;
-  text-decoration: none;
-  font-weight: normal;
-}
+// a {
+//   display: block;
+//   text-align: center;
+//   margin: 8px 0;
+//   text-decoration: none;
+//   font-weight: normal;
+// }
 
-p {
-  text-align: center;
-  margin-top: 16px;
-}
-@media (max-width: 1024px) {
+
+@media (min-width: 1024px) {
   .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin: 11rem 80px 80px 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-content: center;
+    place-items: center;
   }
-  .logo, .login {
-    height: fit-content;
-    overflow-y: hidden;
+  .logo-title {
+    font-size: 4rem;
   }
-  .split {
-    width: fit-content;
+  .logo-subtitle {
+    font-size: 1.2rem;
   }
+
+  .login-form-card {
+    mat-label, input {
+      font-size: 1rem;
+    }
+  }
+
 }

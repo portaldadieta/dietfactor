@@ -1,5 +1,7 @@
 <div class="container">
   <main class="diet-container">
+
+
     <form [formGroup]="dietPlanForm" class="form-container">
       <h1 class="title">Planejar dieta</h1>
 
@@ -63,7 +65,7 @@
               breakfastFoodSelected
             ]"
             [cdkDropListData]="filteredFoods"
-            cdkDropListOrientation="horizontal"
+            cdkDropListOrientation="vertical"
             (cdkDropListDropped)="dropFood($event)"
             id="possibleFoods"
           >
@@ -221,11 +223,20 @@
           </div>
         </div>
       </div>
-      <div class="button-container">
-        <button [disabled]="!dietPlanForm.valid" mat-raised-button class="">
-          Criar dieta
-        </button>
-      </div>
+        <div class="button-container">
+          <button [disabled]="!dietPlanForm.valid" mat-raised-button class="">
+            Criar dieta
+          </button>
+        </div>
     </form>
+
+    <div class="alert-message" #alertMessage>
+      <div class="alert-message-wrapper">
+        <mat-icon>
+          warning
+        </mat-icon>
+        <p>É necessário aumentar a ingestão de proteínas!</p>
+      </div>
+    </div>
   </main>
 </div>
