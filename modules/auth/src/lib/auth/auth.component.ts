@@ -15,6 +15,7 @@ import {
 import { IAuth } from '../interfaces/IAuth.interface';
 import { AuthService } from '../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { catchError, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'dietfactor-auth',
@@ -65,6 +66,19 @@ export class AuthComponent implements OnInit {
       password: this.loginForm.get('password')?.value,
     };
 
-    this.authService.login(bodyRequest);
+    this.authService.login(bodyRequest)
+    .pipe(
+      tap((data) => {
+        this.authService.setToken(data.access_token);
+      }),
+      catchError((error) => {
+        console.log(`Ocorreu um erro: ${error}`);
+        return throwError(() => new Error(error));
+      })
+    )
+    .subscribe(res=>{
+      if(res.access_token)
+        this.redirectToDashBoard();
+    });
   }
 }

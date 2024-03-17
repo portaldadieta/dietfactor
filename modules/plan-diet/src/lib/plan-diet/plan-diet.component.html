@@ -6,7 +6,8 @@
       <h1 class="title">Planejar dieta</h1>
 
       <div class="form-field-container">
-        <mat-form-field appearance="fill">
+        <mat-form-field
+          appearance="fill">
           <mat-label>Objetivo</mat-label>
           <mat-select formControlName="dietGoal">
             <mat-option value="manutencao">Manutenção</mat-option>
@@ -15,7 +16,10 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field
+          matTooltipPosition="above"
+          matTooltip="Déficit calórico reduz peso; superávit calórico aumenta peso."
+          appearance="fill">
           <mat-label>Déficit/Superávit</mat-label>
           <input
             formControlName="intensity"
@@ -28,7 +32,10 @@
         </mat-form-field>
 
         <div class="form-row">
-          <mat-form-field class="small-dropdown">
+          <mat-form-field
+            matTooltipPosition="above"
+            matTooltip="Intensidade de atividades físicas"
+            class="small-dropdown">
             <mat-label>Fator de Atividade</mat-label>
             <mat-select appearance="fill" formControlName="activityFactor">
               <mat-option value="leve">Leve</mat-option>
