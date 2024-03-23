@@ -30,6 +30,11 @@
       <mat-card-title class="login-form-title">Faça o seu Cadastro</mat-card-title>
 
       <mat-card-content>
+        <div class="image-upload">
+          <img class="image-user" [src]="imageSrc" *ngIf="imageSrc" />
+          <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        </div>
+        
         <div class="form-field-wrapper">
           <mat-form-field  class="input-wrapper" appearance="fill">
             <mat-label>Nome</mat-label>

@@ -18,7 +18,7 @@ import {
 } from '@angular/forms';
 import { RegisterService } from '../services/register.service';
 import { HttpClientModule } from '@angular/common/http';
-import { catchError, finalize, tap, throwError } from 'rxjs';
+import { catchError, finalize, switchMap, tap, throwError } from 'rxjs';
 import { userInfo } from '../interfaces/user-info.interface';
 
 const MATERIAL_MODULES = [
@@ -53,6 +53,8 @@ const MATERIAL_MODULES = [
 })
 export class RegisterComponent implements OnInit {
   private AUTH_ROUTE = '/auth';
+  imageSrc: string | ArrayBuffer | null = null;
+  image!: File;
   registerForm!: FormGroup;
 
   constructor(
@@ -98,9 +100,7 @@ export class RegisterComponent implements OnInit {
     this.registerService
       .createUser(request)
       .pipe(
-        tap((data) => {
-          console.log('Usuário Cadastrado:', data);
-        }),
+        switchMap((response: any)=> this.registerService.uploadImageUser(this.image, response.id)),
         finalize(() => this.redirectToLogin()),
         catchError((error) => {
           console.log(`Ocorreu um erro: ${error}`);
@@ -113,4 +113,15 @@ export class RegisterComponent implements OnInit {
   redirectToLogin() {
     this.router.navigate([`${this.AUTH_ROUTE}`]);
   }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.image = file;
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
+      reader.readAsDataURL(file);
+    }
+  }
+
 }

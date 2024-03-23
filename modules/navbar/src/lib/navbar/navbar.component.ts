@@ -13,6 +13,7 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  imgUser="https://localhost:3000/users/profile-image?id=3";
   navBarButtons = [
     {
       title: 'home',

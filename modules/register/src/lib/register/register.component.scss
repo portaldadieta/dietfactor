@@ -101,3 +101,15 @@ button {
     }
   }
 }
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  padding: 1rem;
+}
+.image-user {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
