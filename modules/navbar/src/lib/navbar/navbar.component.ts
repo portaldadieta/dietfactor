@@ -15,12 +15,10 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
 })
 export class NavbarComponent {
   
-  constructor(private authService: AuthService) {
-
-  }
+  constructor(private authService: AuthService) {}
 
 
-  imgUser="https://localhost:3000/users/profile-image?id=3";
+  imgUser=`https://dietfactor.ngrok.app/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
   navBarButtons = [
     {
       title: 'home',

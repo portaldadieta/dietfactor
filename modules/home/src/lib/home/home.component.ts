@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
 import Chart from 'chart.js/auto';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { AuthService } from '@dietfactor/modules/auth';
 
 @Component({
   selector: 'dietfactor-home',
@@ -15,6 +16,8 @@ import {MatCardModule} from '@angular/material/card';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
+  authService: AuthService = inject(AuthService);
+  imgUser=`https://dietfactor.ngrok.app/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
   weigthChart: any = [];
   otherChart: any = [];
   difference: number = 12;
