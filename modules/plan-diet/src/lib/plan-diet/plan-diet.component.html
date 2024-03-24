@@ -62,7 +62,7 @@
         </mat-form-field>
 
         <div class="foods-to-select-container">
-          <mat-chip-set
+          <div
             cdkDropList
             #avaiableFoods="cdkDropList"
             [cdkDropListConnectedTo]="[
@@ -77,7 +77,13 @@
             id="possibleFoods"
           >
             @for (food of filteredFoods; track food) {
-            <mat-chip cdkDrag>{{ food.name }}</mat-chip>
+            <mat-card class="card-food" cdkDrag>
+              <span class="card-food-name">{{ food.name }}</span>
+              <span>Carboidratos: {{ food.carbs }}g</span>
+              <span>Gordura: {{ food.fats }}g</span>
+              <span>Kcal: {{ food.kcal }}</span>
+              <span>Proteinas: {{ food.protein }}g</span>
+            </mat-card>
             } @empty {
             <div class="food-not-found">
               <p class="not-found-message">
@@ -86,7 +92,7 @@
               </p>
             </div>
             }
-          </mat-chip-set>
+          </div>
         </div>
       </div>
 
