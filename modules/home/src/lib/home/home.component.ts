@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   weigthChart: any = [];
   otherChart: any = [];
   difference: number = 12;
+  userData = this.authService.getUserAuthData().user;
 
   ngOnInit() {
     this.weigthChart = new Chart('weigthChart', {

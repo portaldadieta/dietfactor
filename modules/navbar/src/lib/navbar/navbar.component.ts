@@ -17,8 +17,9 @@ export class NavbarComponent {
   
   constructor(private authService: AuthService) {}
 
-
   imgUser=`https://dietfactor.ngrok.app/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
+  userData = this.authService.getUserAuthData().user;
+
   navBarButtons = [
     {
       title: 'home',
