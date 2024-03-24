@@ -13,6 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IAuth } from '../interfaces/IAuth.interface';
+import { IResponse } from '../interfaces/IResponse.interface';
 import { AuthService } from '../services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { catchError, tap, throwError } from 'rxjs';
@@ -68,8 +69,9 @@ export class AuthComponent implements OnInit {
 
     this.authService.login(bodyRequest)
     .pipe(
-      tap((data) => {
-        this.authService.setToken(data.access_token);
+      tap((data: IResponse) => {
+        console.log(data);
+        this.authService.setUserAuthData(data);
       }),
       catchError((error) => {
         console.log(`Ocorreu um erro: ${error}`);

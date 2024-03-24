@@ -20,7 +20,7 @@
       </mat-form-field>
       <mat-form-field class="birthday-grid">
         <mat-label>Data de nascimento</mat-label>
-        <input matInput [matDatepicker]="datepicker" />
+        <input matInput [matDatepicker]="datepicker" formControlName="birthday" />
         <mat-hint>DD/MM/AAAA</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
@@ -41,16 +41,9 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Peso (em kg)</mat-label>
-        <input placeholder='Ex.: "70"' matInput formControlName="weigth" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Sexo</mat-label>
-        <mat-select formControlName="gender">
-          <mat-option value="feminino">Feminino</mat-option>
-          <mat-option value="masculino">Masculino</mat-option>
-        </mat-select>
+        <input placeholder='Ex.: "70"' matInput formControlName="weight" />
       </mat-form-field>
     </form>
-    <button mat-flat-button color="primary">Salvar</button>
+    <button mat-flat-button color="primary" (click)="handleEditProfile()">Salvar</button>
   </div>
 </div>

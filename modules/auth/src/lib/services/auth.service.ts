@@ -1,31 +1,39 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IAuth } from '../interfaces/IAuth.interface';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IResponse } from '../interfaces/IResponse.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
   httpClient: HttpClient = inject(HttpClient)
 
-  static dietFactorURL = 'http://localhost:3000';
+  static dietFactorURL = 'https://dietfactor.ngrok.app';
 
-  setToken(token: string): void {
-    sessionStorage.setItem('token', token);
+  setUserAuthData(data: IResponse): void {
+    const { access_token: token, user } = data;
+
+    localStorage.setItem('token', token);
+    localStorage.setItem('user-data', JSON.stringify(user));
   }
 
-  getToken(): string | null {
-    return sessionStorage.getItem('token');
+  getUserAuthData(): IResponse {
+    return {
+      user: JSON.parse(localStorage.getItem('user-data')!),
+      access_token: localStorage.getItem('token')!,
+    } 
   }
 
-  clearToken(): void {
-    sessionStorage.removeItem('token');
+  clearUserDataAndToken(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user-data');
   }
+
 
   login(data: IAuth): Observable<IResponse> {
-    return this.httpClient.post<IResponse>(`${AuthService.dietFactorURL}/auth/login`, data);
-      
+    return this.httpClient.post<IResponse>(`${AuthService.dietFactorURL}/auth/login`, data);   
   }
 }

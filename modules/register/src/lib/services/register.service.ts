@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RegisterService {
-  static dietFactorURL = 'http://localhost:3000';
+  static dietFactorURL = 'https://dietfactor.ngrok.app';
 
   constructor(private http: HttpClient) {}
 

@@ -52,7 +52,7 @@ const MATERIAL_MODULES = [
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit {
-  private AUTH_ROUTE = '/auth';
+  private AUTH_ROUTE = 'localhost:4200/auth';
   imageSrc: string | ArrayBuffer | null = null;
   image!: File;
   registerForm!: FormGroup;

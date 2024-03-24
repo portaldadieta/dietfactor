@@ -6,7 +6,7 @@ import { Food } from '../consult-food/interfaces/food.interface';
   providedIn: 'root'
 })
 export class ConsultFoodService {
-  static dietFactorURL = 'http://localhost:3000';
+  static dietFactorURL = 'https://dietfactor.ngrok.app';
 
   constructor(private http: HttpClient) {}
 

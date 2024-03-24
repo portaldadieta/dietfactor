@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { AuthService } from '@dietfactor/modules/auth';
+
 const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
 @Component({
   selector: 'dietfactor-navbar',
@@ -13,6 +14,12 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
+  
+  constructor(private authService: AuthService) {
+
+  }
+
+
   imgUser="https://localhost:3000/users/profile-image?id=3";
   navBarButtons = [
     {
@@ -46,5 +53,11 @@ export class NavbarComponent {
 
   redirectTo(path: string): void {
     this.router.navigate([path]);
-  }
+  };
+
+  handleLogout(): void {
+    this.authService.clearUserDataAndToken();
+    this.redirectTo('/auth');
+  };
+
 }

@@ -7,15 +7,12 @@ import { UserInfo } from '../edit-profile/interfaces/user.interface';
 })
 export class EditProfileService {
 
-  static dietFcatorURL = 'http://localhost:3000';
+  static dietFactorURL = 'https://dietfactor.ngrok.app';
 
   constructor(private http: HttpClient) { }
 
-  updateUserProfile(userId:number, userData: UserInfo) {
-      return this.http.put<UserInfo>(`${EditProfileService.dietFcatorURL}/user/`, {
-        id: userId,
-        editUserDto: userData
-      });
+  updateUserProfile(userData: UserInfo) {
+      return this.http.patch<UserInfo>(`${EditProfileService.dietFactorURL}/user/${userData?.id}`, userData);
   }
 
 }

@@ -18,7 +18,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { EditProfileService } from '../services/edit-profile.service';
 import { UserInfo } from '../edit-profile/interfaces/user.interface';
 import { finalize, catchError, throwError } from 'rxjs';
-
+import { AuthService } from '@dietfactor/modules/auth'
+import { IResponse } from '@dietfactor/modules/auth';
 @Component({
   selector: 'dietfactor-edit-profile',
   standalone: true,
@@ -43,10 +44,14 @@ import { finalize, catchError, throwError } from 'rxjs';
   styleUrl: './edit-profile.component.scss',
 })
 export class EditProfileComponent {
-  constructor(private editProfileService: EditProfileService) {
+  constructor(private editProfileService: EditProfileService, private authService: AuthService) {
     this.initializeFormGroup();
+    this.extractUserData();
+    this.fillUserFormData();
   }
+
  editProfileForm!: FormGroup;
+ user!: Omit<IResponse, "access_token">['user'];
 
   public mask = {
     guide: true,
@@ -61,25 +66,34 @@ export class EditProfileComponent {
       surname: new FormControl(),
       birthday: new FormControl(),
       height: new FormControl(),
-      weigth: new FormControl(),
-      gender: new FormControl(),
+      weight: new FormControl(),
+    });
+  };
+
+  fillUserFormData(): void {
+    const date = this.user?.birthday.split('T')[0];
+
+    const formattedDate = date.split('-').reverse().join('-');
+
+    this.editProfileForm.setValue({
+      name: this.user?.name.split(' ')[0],
+      email: this.user?.email,
+      surname: this.user?.name.split(' ')[1],
+      birthday: new Date(formattedDate),
+      height: this.user?.height * 100,
+      weight: this.user?.weight,
     });
   }
 
-  editProfile(): void {
-    const userData: UserInfo = {
-      id: 1,
-      name: `${this.editProfileForm.get('name')?.value} ${
-        this.editProfileForm.get('surname')?.value
-      }`,
-      email: this.editProfileForm.get('email')?.value,
-      height: this.editProfileForm.get('height')?.value / 100,
-      weight: this.editProfileForm.get('weight')?.value,
-      birthday: this.editProfileForm.get('bornDate')?.value,
-      password: this.editProfileForm.get('password')?.value,
-    };
+  extractUserData(): void {
+    const { user } = this.authService.getUserAuthData();
+    this.user = user;
+  }
+  
+  handleEditProfile(): void {
+    const userData: UserInfo = this.editProfileForm.getRawValue();
 
-    this.editProfileService.updateUserProfile(1, userData)
+    this.editProfileService.updateUserProfile(userData)
     .pipe(
       finalize(() => console.log('Perfil Editado')),
       catchError((error) => {

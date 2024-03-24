@@ -50,7 +50,7 @@
       ],
       "@dietfactor/modules/shared/services/user/userService": [
         "modules/shared/services/user/user.service.ts"
-      ]
+      ],
     }
   },
   "exclude": [
