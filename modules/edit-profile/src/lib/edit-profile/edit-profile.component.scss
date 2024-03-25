@@ -10,6 +10,11 @@
   width: 80%;
   background-color: #ffff;
   border-radius: 8px;
+
+  @media (max-width: 700px) {
+    padding: 3rem 1.2rem;
+    width: 80%;
+  }
 }
 
 .edit-profile-form {
@@ -21,12 +26,21 @@
   mat-form-field {
     height: min-content;
   }
+
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 .email-grid {
   grid-area: 1 / 1 / 2 / 3;
 }
 .birthday-grid {
   grid-area: 3 / 1 / 4 / 3;
+
+  @media (max-width: 700px) {
+    margin-bottom: 1rem;
+  }
 }
 button {
   width: 100%;
