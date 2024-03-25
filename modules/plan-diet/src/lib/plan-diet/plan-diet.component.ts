@@ -96,8 +96,7 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
   initializeDietPlanForm(): void {
     this.dietPlanForm = new FormGroup({
       dietName: new FormControl('', Validators.required),
-      basalRate: new FormControl('', Validators.required),
-      intensity: new FormControl('', [Validators.pattern(/^\d*$/), Validators.required]),
+      valueObjective: new FormControl('', [Validators.pattern(/^\d*$/), Validators.required]),
       foodName: new FormControl(null),
       dietGoal: new FormControl(null, Validators.required),
       activityFactor: new FormControl(null, Validators.required),
@@ -212,14 +211,13 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
     } 
   }
   createDiet(): void {
-    const {dietName, dietGoal, basalRate, activityFactor, intensity} = this.dietPlanForm.value;
+    const {dietName, dietGoal, activityFactor, valueObjective} = this.dietPlanForm.value;
     const dietData = {
       title: dietName,
       objective: dietGoal,
-      basalRate,
       factor: activityFactor,
-      intensity,
-      valueObjective: 500,
+      intensity: activityFactor,
+      valueObjective,
       userId: this.authService.getUserAuthData().user.id,
       meals: [
         {
