@@ -1,18 +1,25 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '@dietfactor/modules/auth';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanDietService {
-  static dietFactorURL = 'http://localhost:3000';
-
+  static dietFactorURL = 'https://dietfactor.ngrok.app';
+  authService: AuthService = inject(AuthService);
   constructor(private http: HttpClient) { }
 
   getAllFoods() {
     return this.http.get<Food[]>(`${PlanDietService.dietFactorURL}/foods/?limit=100`)
   };
+  createDiet(diet: any) {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer '+this.authService.getUserAuthData().access_token
+    });
+    return this.http.post(`${PlanDietService.dietFactorURL}/diets`, diet, {headers: headers});
+  }
 }
 
 interface Food {
