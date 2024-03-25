@@ -108,6 +108,7 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
             console.log(this.filteredFoods);
           }))
           .subscribe(res => {
+            console.log(res)
              this.allFoods = res;
           });
   }
