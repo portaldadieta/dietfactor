@@ -110,11 +110,16 @@ h2 {
 .foods-to-select-container {
   min-width: 0%;
   padding: 0.5rem;
-  background-color: #fff;
+  // background-color: #fff;
   border-radius: 8px;
   height: fit-content;
   width: fit-content;
   border: 1px solid #ccc;
+  
+
+  @media (max-width: 1530px) {
+    width: 100%;
+  }
 }
 
 .possible-meals-container {
@@ -257,4 +262,9 @@ h2 {
   grid-template-rows: 1fr;
   grid-row-gap: 10px;
   grid-column-gap: 10px;
+
+  @media (max-width: 700px) {
+    grid-row-gap: 20px;
+    grid-column-gap: 20px;
+  }
 }

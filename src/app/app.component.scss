@@ -1,11 +1,12 @@
 .container {
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f0f1f3;
   display: flex;
   overflow: hidden;
   gap: 1rem;
 }
 .components {
+  height: 100vh;
   width: 100%;
   overflow-x: hidden;
 }
