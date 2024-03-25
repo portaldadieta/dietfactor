@@ -2,7 +2,10 @@
   height: 100vh;
   display: flex;
   gap: 1rem;
-  position: relative;
+
+  @media (max-width: 1530px) {
+    padding-right: 14px;
+  }
 }
 
 .form-container {
@@ -14,6 +17,32 @@
   display: flex;
   gap: 1rem;
   align-items: start;
+  flex: 1;
+
+  @media (max-width: 1530px){
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "form-name form-objective"
+    "form-value-objective form-factor";
+  }
+}
+
+.form-name {
+  grid-area: form-name;
+}
+
+.form-objective {
+  grid-area: form-objective;
+}
+
+.form-value-objective {
+  grid-area: form-value-objective;
+}
+
+.form-factor {
+  grid-area: form-factor;
 }
 
 .diet-container {
@@ -22,6 +51,10 @@
   display: flex;
   flex-direction: column;
   place-content: flex-start;
+
+  @media (max-width: 1530px) {
+    padding: 3rem 0rem 3rem
+  }
 }
 
 mat-form-field {
@@ -85,11 +118,19 @@ h2 {
 }
 
 .possible-meals-container {
-  width: 100%;
-  padding: 1rem;
+  margin: 1rem 0;
+  padding: 1rem 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  justify-content: space-evenly;
+  gap: 2rem;
+
+  @media (max-width: 1500px) {
+    overflow-x: scroll;
+    padding: 0;
+    max-width: 100%;
+    justify-content: space-between;
+  }
 }
 
 .selected-foods-container {
@@ -105,13 +146,6 @@ h2 {
   border-radius: 4px;
   overflow: hidden;
   display: block;
-}
-
-.possible-meals-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  gap: 2rem;
 }
 
 .food-not-found {

@@ -6,11 +6,11 @@
       <h1 class="title">Planejar dieta</h1>
 
       <div class="form-field-container">
-        <mat-form-field appearance="fill">
+        <mat-form-field class="form-name" appearance="fill">
           <mat-label>Nome da Dieta</mat-label>
           <input matInput formControlName="dietName"/>
         </mat-form-field>
-        <mat-form-field
+        <mat-form-field class="form-objective"
           appearance="fill">
           <mat-label>Objetivo</mat-label>
           <mat-select formControlName="dietGoal">
@@ -20,12 +20,8 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Taxa Basal</mat-label>
-          <input matInput type="number" formControlName="basalRate"/>
-        </mat-form-field>
-
         <mat-form-field
+          class="form-value-objective"
           matTooltipPosition="above"
           matTooltip="Déficit calórico reduz peso; superávit calórico aumenta peso."
           appearance="fill">
@@ -40,19 +36,18 @@
           }
         </mat-form-field>
 
-        <div class="form-row">
-          <mat-form-field
-            matTooltipPosition="above"
-            matTooltip="Intensidade de atividades físicas"
-            class="small-dropdown">
-            <mat-label>Fator de Atividade</mat-label>
-            <mat-select appearance="fill" formControlName="activityFactor">
-              <mat-option value="leve">Leve</mat-option>
-              <mat-option value="moderada">Moderada</mat-option>
-              <mat-option value="intensa">Intensa</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+        <mat-form-field
+          class="form-factor"
+          matTooltipPosition="above"
+          matTooltip="Intensidade de atividades físicas"
+          class="small-dropdown">
+          <mat-label>Fator de Atividade</mat-label>
+          <mat-select appearance="fill" formControlName="activityFactor">
+            <mat-option value="leve">Leve</mat-option>
+            <mat-option value="moderada">Moderada</mat-option>
+            <mat-option value="intensa">Intensa</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div class="search-wrap">
