@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { userInfo } from '../interfaces/user-info.interface';
 import { Observable } from 'rxjs';
+import { Constants } from 'modules/constants';
 @Injectable({
   providedIn: 'root',
 })
 export class RegisterService {
-  static dietFactorURL = 'https://dietfactor.ngrok.app';
+  static dietFactorURL = Constants.API_URL;
 
   constructor(private http: HttpClient) {}
 

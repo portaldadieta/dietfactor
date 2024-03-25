@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Food } from '../consult-food/interfaces/food.interface';
+import { Constants } from 'modules/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsultFoodService {
-  static dietFactorURL = 'https://dietfactor.ngrok.app';
+  static dietFactorURL = Constants.API_URL;
 
   constructor(private http: HttpClient) {}
 

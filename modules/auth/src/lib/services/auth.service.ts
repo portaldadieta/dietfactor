@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IAuth } from '../interfaces/IAuth.interface';
 import { Observable } from 'rxjs';
 import { IResponse } from '../interfaces/IResponse.interface';
+import { Constants } from 'modules/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class AuthService {
 
   httpClient: HttpClient = inject(HttpClient)
 
-  static dietFactorURL = 'https://dietfactor.ngrok.app';
+  static dietFactorURL = Constants.API_URL;
 
   setUserAuthData(data: IResponse): void {
     const { access_token: token, user } = data;

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserInfo } from '../edit-profile/interfaces/user.interface';
+import { Constants } from 'modules/constants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EditProfileService {
 
-  static dietFactorURL = 'https://dietfactor.ngrok.app';
+  static dietFactorURL = Constants.API_URL;
 
   constructor(private http: HttpClient) { }
 

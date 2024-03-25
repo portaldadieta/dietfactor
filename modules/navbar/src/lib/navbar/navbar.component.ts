@@ -4,6 +4,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AuthService } from '@dietfactor/modules/auth';
+import { Constants } from 'modules/constants';
 
 const MATERIAL_MODULES = [MatIconModule, MatButtonModule, ]
 @Component({
@@ -17,7 +18,7 @@ export class NavbarComponent {
   
   constructor(private authService: AuthService) {}
 
-  imgUser=`https://dietfactor.ngrok.app/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
+  imgUser=`${Constants.API_URL}/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
   userData = this.authService.getUserAuthData().user;
 
   expand = false;

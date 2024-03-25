@@ -1,13 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '@dietfactor/modules/auth';
+import { Constants } from 'modules/constants';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanDietService {
-  static dietFactorURL = 'https://dietfactor.ngrok.app';
+  static dietFactorURL = Constants.API_URL;
   authService: AuthService = inject(AuthService);
   constructor(private http: HttpClient) { }
 

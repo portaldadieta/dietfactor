@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { AuthService } from '@dietfactor/modules/auth';
+import { Constants } from 'modules/constants';
 
 @Component({
   selector: 'dietfactor-home',
@@ -17,7 +18,7 @@ import { AuthService } from '@dietfactor/modules/auth';
 })
 export class HomeComponent implements OnInit {
   authService: AuthService = inject(AuthService);
-  imgUser=`https://dietfactor.ngrok.app/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
+  imgUser=`${Constants.API_URL}/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
   weigthChart: any = [];
   otherChart: any = [];
   difference: number = 12;
