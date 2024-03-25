@@ -91,6 +91,7 @@ export class RegisterComponent implements OnInit {
       height: this.registerForm.get('height')?.value / 100,
       weight: this.registerForm.get('weight')?.value,
       birthday: this.registerForm.get('bornDate')?.value,
+      sex: this.registerForm.get('gender')?.value,
       password: this.registerForm.get('password')?.value,
     };
 

@@ -4,6 +4,7 @@ export interface userInfo {
     height: number | string;
     weight: number | string;
     birthday: string;
+    sex: string;
     password: string;
     goal?: string;
   }

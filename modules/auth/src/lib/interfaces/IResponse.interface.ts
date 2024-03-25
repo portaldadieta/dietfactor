@@ -6,6 +6,7 @@ export interface IResponse {
     height: number;
     weight: number;
     birthday: string;
+    sex: string;
     createdAt: string;
     updatedAt: string;
     deletedAt: string | null;
