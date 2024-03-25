@@ -6,6 +6,10 @@
       <h1 class="title">Planejar dieta</h1>
 
       <div class="form-field-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Nome da Dieta</mat-label>
+          <input matInput formControlName="dietName"/>
+        </mat-form-field>
         <mat-form-field
           appearance="fill">
           <mat-label>Objetivo</mat-label>
@@ -14,6 +18,11 @@
             <mat-option value="deficit">Déficit</mat-option>
             <mat-option value="superavit">Superávit</mat-option>
           </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Taxa Basal</mat-label>
+          <input matInput type="number" formControlName="basalRate"/>
         </mat-form-field>
 
         <mat-form-field
@@ -237,7 +246,7 @@
         </div>
       </div>
         <div class="button-container">
-          <button [disabled]="!dietPlanForm.valid" mat-raised-button class="">
+          <button (click)="createDiet()" [disabled]="!dietPlanForm.valid" mat-raised-button class="">
             Criar dieta
           </button>
         </div>

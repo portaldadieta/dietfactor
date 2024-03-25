@@ -1,4 +1,4 @@
-import { Component, OnDestroy, AfterViewInit, OnInit, ViewChild, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnDestroy, AfterViewInit, OnInit, ViewChild, Renderer2, ElementRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,6 +31,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '@dietfactor/modules/auth';
 
 const MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -73,6 +74,7 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
   subscription!: Subscription | undefined;
   totalKcal: number = 2000;
   totalProtein: number = 160;
+  authService: AuthService = inject(AuthService);
 
   constructor(private dialog: MatDialog, private renderer: Renderer2, private planDietService: PlanDietService) {}
 
@@ -93,7 +95,9 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
 
   initializeDietPlanForm(): void {
     this.dietPlanForm = new FormGroup({
-      intensity: new FormControl('', [Validators.pattern(/^\d*$/)]),
+      dietName: new FormControl('', Validators.required),
+      basalRate: new FormControl('', Validators.required),
+      intensity: new FormControl('', [Validators.pattern(/^\d*$/), Validators.required]),
       foodName: new FormControl(null),
       dietGoal: new FormControl(null, Validators.required),
       activityFactor: new FormControl(null, Validators.required),
@@ -206,6 +210,48 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
       this.renderer.removeClass(this.alertMessage.nativeElement, 'open')
    }, 11000);
     } 
+  }
+  createDiet(): void {
+    const {dietName, dietGoal, basalRate, activityFactor, intensity} = this.dietPlanForm.value;
+    const dietData = {
+      title: dietName,
+      objective: dietGoal,
+      basalRate,
+      factor: activityFactor,
+      intensity,
+      valueObjective: 500,
+      userId: this.authService.getUserAuthData().user.id,
+      meals: [
+        {
+          title: 'Café da manhã',
+          foods: this.breakfastSelectedFoods
+        },
+        {
+          title: 'Lanche',
+          foods: this.snackSelectedFoods
+        },
+        {
+          title: 'Almoço',
+          foods: this.lunchSelectedFoods
+        },
+        {
+          title: 'Jantar',
+          foods: this.dinnerSelectedFoods
+        }
+      ]
+    }
+    this.planDietService.createDiet(dietData).subscribe({
+      next: ()=> {
+        this.dietPlanForm.reset();
+        this.breakfastSelectedFoods = [];
+        this.snackSelectedFoods = [];
+        this.lunchSelectedFoods = [];
+        this.dinnerSelectedFoods = [];
+
+        // TODO: Adicionar mensagem de sucesso ao criar dieta
+      this.renderer.addClass(this.alertMessage.nativeElement, 'open');
+      }
+    })
   }
 }
 
