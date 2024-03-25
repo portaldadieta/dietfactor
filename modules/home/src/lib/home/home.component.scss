@@ -3,10 +3,18 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
+
+  @media (max-width: 700px) {
+    // position: relative;
+  }
 }
 .example-card {
   max-width: 100%;
   box-shadow: none;
+
+  @media (max-width: 1400px) {
+    max-width: 90%;
+  }
 }
 mat-card-content {
     display: flex;
@@ -26,6 +34,11 @@ mat-card-content {
   align-items: end;
   gap: 1rem;
   width: 70%;
+
+  @media (max-width: 1400px) {
+    flex-direction: column;
+    width: 90%;
+  }
 }
 
 .label-chart {
@@ -37,4 +50,8 @@ mat-card-content {
 }
 canvas {
     background-color: #fff;
+
+    @media (max-width: 1400px) {
+      width: 100%;
+    }
 }

@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AuthService } from '@dietfactor/modules/auth';
 
-const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
+const MATERIAL_MODULES = [MatIconModule, MatButtonModule, ]
 @Component({
   selector: 'dietfactor-navbar',
   standalone: true,
@@ -19,6 +19,8 @@ export class NavbarComponent {
 
   imgUser=`https://dietfactor.ngrok.app/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
   userData = this.authService.getUserAuthData().user;
+
+  expand = false;
 
   navBarButtons = [
     {
@@ -58,5 +60,9 @@ export class NavbarComponent {
     this.authService.clearUserDataAndToken();
     this.redirectTo('/auth');
   };
+
+  expandNavbar(): void {
+    this.expand = !this.expand;
+  }
 
 }

@@ -1,4 +1,16 @@
-.nav-bar-container {
+.wrapper, .wrapper-expand {
+  display: flex;
+  align-items: flex-end;
+}
+
+.wrapper-expand {
+  @media (max-width: 700px) {
+    position: absolute;
+    z-index: 999;
+  }
+}
+
+.nav-bar-container, .nav-bar-container-expand {
   height: 100vh;
   width: 300px;
   background: #fff;
@@ -8,13 +20,30 @@
   gap: 10%;
   border-right: 1px solid #f0f1f3;
   color: #5d6679;
+
+  @media (max-width: 700px) {
+    width: 100px;
+  }
 }
-.content {
+
+.nav-bar-container-expand {
+  width: 300px;
+}
+
+.content, .content-expand {
   display: flex;
   flex-direction: column;
   gap: 3rem;
   margin-top: 5rem;
 }
+
+.content {
+  @media (max-width: 700px) {
+    margin-top: 1rem;
+    align-items: center;
+  }
+}
+
 .icon-person {
   background-color: #5d6679;
   border-radius: 50%;
@@ -22,7 +51,7 @@
   align-self: center;
   color: #5d6679;
 }
-.header-container {
+.header-container, .header-container-expand {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,22 +69,49 @@
     letter-spacing: 0.4px;
     text-transform: uppercase;
   }
+
+  // @media (max-width: 700px) {
+  //   flex-direction: column;
+
+  //   &-atv {
+  //     display: none;
+  //   }
+  // }
 }
+
+.header-container {
+  @media (max-width: 700px) {
+    flex-direction: column;
+
+    &-atv {
+      display: none;
+    }
+  }
+}
+
 .divider {
   border-radius: 2px;
   background: #012d56;
   height: 2px;
 }
-.body-container {
+.body-container, .body-container-expand {
   flex-direction: column;
   gap: 0.3rem;
 }
-.footer-container {
+
+.body-container {
+  @media (max-width: 700px) {
+    & button span:nth-child(1) {
+      display: none;
+    }
+  }
+}
+
+.footer-container, .footer-container-expand {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-self: flex-end;
-  &-logo {
+  &-logo, &-logo-expand {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,6 +120,33 @@
     }
   }
 }
+
+.footer-container {
+  &-logo {
+    span {
+      @media (max-width: 700px) {
+        display: none;
+      }
+    }
+  }
+
+  &-button {
+    @media (max-width: 700px) {
+      gap: 0;
+      & button {
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & span {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
 button {
   padding-left: 2.5rem;
   display: flex;
@@ -92,4 +175,18 @@ button,
 }
 .help {
   color: #5d6679;
+}
+.footer-button-expand button {
+  background-color: #5d6679;
+  padding: 0;
+  width: 25px;
+  cursor: pointer;
+
+  & .icon {
+    color: #fff;
+  }
+
+  @media (min-width: 700px) {
+    display: none;
+  }
 }
