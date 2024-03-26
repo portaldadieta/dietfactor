@@ -33,7 +33,7 @@ export class ConsultDietsModalComponent implements OnInit {
 
   constructor(
     public modal: MatDialogRef<ConsultDietsModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public dietInfo: Diet
+    @Inject(MAT_DIALOG_DATA) public dietInfo: any
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class ConsultDietsModalComponent implements OnInit {
         labels: ['proteinas', 'gorduras', 'kcal', 'carboidratos'],
         datasets: [
           {
-            data: [this.dietInfo.protein, this.dietInfo.fat, this.dietInfo.kcal, this.dietInfo.carbs],
+            data: [this.dietInfo.totalProtein, this.dietInfo.totalFats, this.dietInfo.totalKcal, this.dietInfo.totalCarbs],
             borderWidth: 2,
           },
         ],
@@ -89,12 +89,12 @@ export class ConsultDietsModalComponent implements OnInit {
 
   setDietInformationFormValues(): void {
     this.dietInformationForm.patchValue({
-      dietName: this.dietInfo?.name,
-      dietGoal: this.dietInfo?.goal,
-      dietTotalKcal: `${this.dietInfo?.kcal}kcal`,
-      dietProtein: `${this.dietInfo?.protein}gr`,
-      dietCarbs: `${this.dietInfo?.carbs}gr`,
-      dietFats: `${this.dietInfo?.fat}gr`,
+      dietName: this.dietInfo?.title,
+      dietGoal: this.dietInfo?.objective,
+      dietTotalKcal: `${this.dietInfo?.totalKcal}kcal`,
+      dietProtein: `${this.dietInfo?.totalProtein}gr`,
+      dietCarbs: `${this.dietInfo?.totalCarbs}gr`,
+      dietFats: `${this.dietInfo?.totalCarbs}gr`,
     });
   }
 
