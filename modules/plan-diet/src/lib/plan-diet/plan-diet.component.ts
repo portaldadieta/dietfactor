@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -72,28 +72,64 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   snackSelectedFoods: Food[] = [];
   breakfastSelectedFoods: Food[] = [];
   subscription!: Subscription | undefined;
-  totalKcal: number = 2000;
-  totalProtein: number = 160;
 
-  feedbackMessage: string = '';
+  
+  totalKcal: number = 0;
+  totalProtein: number = 0;
+  totalFat: number = 0;
+  totalCarbs: number = 0;
+
+
+
+  kcalGoal: number = 2200;
+  proteinGoal: number = 160;
+  fatsGoal: number = 70;
+  carbsGoal: number = 150;
+
+
+  dietTracker = signal(
+    [this.breakfastSelectedFoods, this.snackSelectedFoods, this.lunchSelectedFoods, this.dinnerSelectedFoods]
+  );
+
 
   private authService: AuthService = inject(AuthService);
   private dialog: MatDialog = inject(MatDialog);
   private planDietService: PlanDietService = inject(PlanDietService);
 
 
+  constructor() {
+    effect(() => {
+      this.totalKcal = 0;
+      this.totalProtein = 0;
+      this.totalCarbs = 0;
+      this.totalFat = 0;
+      this.dietTracker().forEach(mealPlan => {
+        mealPlan.forEach(meal => {
+          this.totalKcal += (Number(meal.amount) * Number(meal.kcal)) / 100;
+          this.totalProtein += (Number(meal.amount) * Number(meal.protein)) / 100
+          this.totalCarbs += (Number(meal.amount) * Number(meal.carbs)) / 100
+          this.totalFat += (Number(meal.amount) * Number(meal.fats)) / 100
+        })
+      });
+    });
+  }
+
+
   ngOnInit(): void {
     this.initializeAllFoodsData();
     this.initializeDietPlanForm();
     this.myFoodsFiltered();
-    this.handleOpenAlertModal();
   }
-
 
 
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+
+  handleUpdateDietValues(): void {
+    this.dietTracker.update(currentValue => [...currentValue]);
   }
 
   initializeDietPlanForm(): void {
@@ -168,6 +204,8 @@ export class PlanDietComponent implements OnInit, OnDestroy {
         );
       } else {
         event.previousContainer.data.splice(event.previousIndex, 1);
+        this.handleUpdateDietValues();  
+        this.handleOpenAlertModal();
       }
     }
   }
@@ -181,7 +219,7 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   }
 
   openFoodAmountModal(food: Food, selectedFoods: Food[]): void {
-    const foodAmountDialog = this.dialog.open(FoodAmountModalComponent, {
+   const foodAmountDialog = this.dialog.open(FoodAmountModalComponent, {
       width: '400px',
       height: '300px',
       data: food,
@@ -193,43 +231,66 @@ export class PlanDietComponent implements OnInit, OnDestroy {
       if(foodAmount === undefined) {
         return;
       }
-    
       const index: number = selectedFoods.findIndex(
         (f) => f.name === food.name
       );
-
       selectedFoods[index] = {
         ...selectedFoods[index],
         amount: foodAmount,
       };
+
+      this.handleUpdateDietValues();
       this.handleOpenAlertModal();
     });
   }
 
   handleOpenAlertModal(): void {
+
     const alertModal = this.dialog.open(AlertMessageModalComponent, {
-      width: '500px',
-      height: '140px',
+      width: '400px',
+      height: '150px',
       position: {
-        'bottom': '20px'
+        'bottom': '30px'
       }});
 
-      alertModal.componentInstance.icon = 'warning';
-      alertModal.componentInstance.feedbackMessage = 'É necessário que você inclua mais proteína no seu plano alimentar'
+    let feedback: string = '';
 
-    const messages = {
+    if(this.totalKcal < this.kcalGoal - 150) {
+      feedback = 'insufficientKcals';
+    } else if(this.totalKcal > this.kcalGoal + 150) {
+      feedback = 'excedentKcals';
+    } else if(this.totalProtein > this.proteinGoal + 10) {
+      feedback = 'highProtein';
+    } else if(this.totalProtein < this.proteinGoal - 10) {
+      feedback = 'lowProtein';
+    } else if(this.totalCarbs > this.carbsGoal + 10) {
+      feedback = 'highCarbs';
+    } else if(this.totalCarbs < this.carbsGoal - 10) {
+      feedback = 'lowCarbs';
+    } else if(this.totalFat > this.fatsGoal + 10) {
+      feedback = 'highFat';
+    } else if(this.totalFat < this.fatsGoal - 10) {
+      feedback = 'lowFat';
+    } 
+
+    const messages: {
+      [key: string]: string
+    } = {
       lowProtein: 'É necessário que você inclua mais proteína no seu plano alimentar',
       lowFat: 'É necessário que você inclua mais proteína no seu plano alimentar',
       lowCarb: 'É necessário que você inclua mais carboidrato no seu plano alimentar',
+      highProtein: 'É necessário que você diminua a quantidade de proteína do seu plano alimentar',
+      highFat: 'É necessário que você diminua a quantidade de proteína do seu plano alimentar',
+      highCarb: 'É necessário que você diminua a quantidade de carboidrato do seu plano alimentar',
       excedentKcals: 'É necessário que você diminua a quantidade de calorias',
       insufficientKcals: 'É necessário que você inclua mais calorias'
-    };
+    }
 
-    const feedback = 'lowProtein';
-    
-    // TODO Lógica para implementação do cálculo da dieta e mensagem.
-
+      alertModal.componentInstance.icon = 'warning';
+      alertModal.componentInstance.feedbackMessage = messages[feedback];
   }
+
+
   createDiet(): void {
     const { dietName, dietGoal, activityFactor, valueObjective } = this.dietPlanForm.value;
     const dietData = {
