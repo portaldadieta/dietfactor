@@ -6,13 +6,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { FoodAmountModalComponent } from './components/food-amout-modal/food-amount-modal.component';
 import { AlertMessageModalComponent } from './components/alert-message-modal/alert-message-modal.component'
-import { Subscription, finalize } from 'rxjs';
+import { Subscription, finalize, forkJoin, switchMap, take } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { PlanDietService } from '../services/plan-diet.service';
 
@@ -108,15 +108,15 @@ export class PlanDietComponent implements OnInit, OnDestroy {
 
   initializeAllFoodsData(): void {
     this.planDietService
-          .getAllFoods()
-          .pipe(finalize(() => { 
-            this.filteredFoods = [...this.allFoods];
-            console.log(this.filteredFoods);
-          }))
-          .subscribe(res => {
-            console.log(res)
-             this.allFoods = res;
-          });
+      .getAllFoods()
+      .pipe(finalize(() => {
+        this.filteredFoods = [...this.allFoods];
+        console.log(this.filteredFoods);
+      }))
+      .subscribe(res => {
+        console.log(res)
+        this.allFoods = res;
+      });
   }
 
   myFoodsFiltered(): void {
@@ -231,7 +231,7 @@ export class PlanDietComponent implements OnInit, OnDestroy {
 
   }
   createDiet(): void {
-    const {dietName, dietGoal, activityFactor, valueObjective} = this.dietPlanForm.value;
+    const { dietName, dietGoal, activityFactor, valueObjective } = this.dietPlanForm.value;
     const dietData = {
       title: dietName,
       objective: dietGoal,
@@ -258,17 +258,56 @@ export class PlanDietComponent implements OnInit, OnDestroy {
         }
       ]
     }
-    this.planDietService.createDiet(dietData).subscribe({
-      next: () => {
-        this.dietPlanForm.reset();
-        this.breakfastSelectedFoods = [];
-        this.snackSelectedFoods = [];
-        this.lunchSelectedFoods = [];
-        this.dinnerSelectedFoods = [];
+    this.planDietService.createDiet(dietData)
+      .pipe(
+        take(1),
+        switchMap((dieta: any) => {
+          console.log(dieta)
+          return forkJoin(
+            [
+              this.planDietService.createMeal(
+                {
+                  dietId: dieta.id,
+                  title: 'Café da manhã',
+                  foods: this.breakfastSelectedFoods
+                }
+              ),
+              this.planDietService.createMeal(
+                {
+                  dietId: dieta.id,
+                  title: 'Almoço',
+                  foods: this.lunchSelectedFoods
+                }
+              ),
+              this.planDietService.createMeal(
+                {
+                  dietId: dieta.id,
+                  title: 'Jantar',
+                  foods: this.dinnerSelectedFoods
+                }
+              ),
+              this.planDietService.createMeal(
+                {
+                  dietId: dieta.id,
+                  title: 'Lanche',
+                  foods: this.snackSelectedFoods
+                }
+              )
+            ]
+        )}
+        )
+    )
+    .subscribe({
+          next: () => {
+            this.dietPlanForm.reset();
+            this.breakfastSelectedFoods = [];
+            this.snackSelectedFoods = [];
+            this.lunchSelectedFoods = [];
+            this.dinnerSelectedFoods = [];
 
-        // TODO: Adicionar mensagem de sucesso ao criar dieta
-      }
-    })
+            // TODO: Adicionar mensagem de sucesso ao criar dieta
+          }
+        })
   }
 }
 

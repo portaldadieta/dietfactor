@@ -21,6 +21,12 @@ export class PlanDietService {
     });
     return this.http.post(`${PlanDietService.dietFactorURL}/diets`, diet, {headers: headers});
   }
+  createMeal(meal: any) {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer '+this.authService.getUserAuthData().access_token
+    });
+    return this.http.post(`${PlanDietService.dietFactorURL}/meals`, meal, {headers: headers});
+  }
 }
 
 interface Food {
