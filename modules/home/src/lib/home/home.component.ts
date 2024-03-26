@@ -10,6 +10,7 @@ import { AuthService } from '@dietfactor/modules/auth';
 import { Constants } from '@dietfactor/modules/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { DailyUserUpdateModalComponent } from './components/daily-user-update-modal/daily-user-update-modal.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'dietfactor-home',
@@ -113,7 +114,7 @@ export class HomeComponent implements OnInit {
       id,
       name,
       email,
-      height,
+      height: `${Number(height/ 100)}0`,
       weight,
       birthday
     };
@@ -134,6 +135,11 @@ handleShowDailyModal(): void {
       height: '400px'
     });
     dailyModalDialog.componentInstance.userData = this.userData;
+    dailyModalDialog.componentInstance.updatedUserWeight.pipe(take(1)).subscribe($e => {
+      if($e) {
+        this.getUserData();
+      }
+    })
   }
 
 

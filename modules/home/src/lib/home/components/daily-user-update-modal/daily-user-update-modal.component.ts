@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, Input } from '@angular/core';
+import { Component, OnInit, inject, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import {
 } from '@angular/forms';
 import { UserInfo } from '@dietfactor/modules/edit-profile';
 import { EditProfileService } from '@dietfactor/modules/edit-profile';
+import { finalize } from 'rxjs';
 
 const MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -35,6 +36,7 @@ interface User {
 })
 export class DailyUserUpdateModalComponent implements OnInit {
   @Input() userData!: UserInfo;
+  @Output() updatedUserWeight = new EventEmitter<number>();
 
   userInfoForm!: FormGroup;
 
@@ -93,7 +95,23 @@ export class DailyUserUpdateModalComponent implements OnInit {
       weight: newWeight
     };
 
-    this.editProfileService.updateUserProfile(user);
+    this.editProfileService.updateUserProfile(user.id!, user).pipe(
+      finalize(() => {
+        this.handleUpdateUserLocalStorage(user);
+        this.updatedUserWeight.emit(1);
+      })
+    ).subscribe()
     this.closeDailyUpdateUserInfo();
+  }
+
+  handleUpdateUserLocalStorage(userData: any): void {
+    const currentValues = JSON.parse(localStorage.getItem('user-data')!);
+
+    const updatedValues = {
+      ...currentValues,
+      ...userData
+    } 
+
+    localStorage.setItem('user-data', JSON.stringify(updatedValues));
   }
 }

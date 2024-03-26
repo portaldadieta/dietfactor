@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
@@ -44,20 +44,18 @@ import { IResponse } from '@dietfactor/modules/auth';
   styleUrl: './edit-profile.component.scss',
 })
 export class EditProfileComponent {
+  editProfileForm!: FormGroup;
+  user!: IResponse['user'];
+
+
+
   constructor(private editProfileService: EditProfileService, private authService: AuthService) {
     this.initializeFormGroup();
     this.extractUserData();
     this.fillUserFormData();
   }
 
- editProfileForm!: FormGroup;
- user!: Omit<IResponse, "access_token">['user'];
 
-  public mask = {
-    guide: true,
-    showMask: true,
-    mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
-  };
 
   initializeFormGroup(): void {
     this.editProfileForm = new FormGroup({
@@ -73,14 +71,12 @@ export class EditProfileComponent {
   fillUserFormData(): void {
     const date = this.user?.birthday.split('T')[0];
 
-    const formattedDate = date.split('-').reverse().join('-');
-
     this.editProfileForm.setValue({
       name: this.user?.name.split(' ')[0],
       email: this.user?.email,
       surname: this.user?.name.split(' ')[1],
-      birthday: new Date(formattedDate),
-      height: this.user?.height * 100,
+      birthday: date,
+      height: this.user?.height,
       weight: this.user?.weight,
     });
   }
@@ -91,19 +87,38 @@ export class EditProfileComponent {
   }
   
   handleEditProfile(): void {
-    const userData: UserInfo = this.editProfileForm.getRawValue();
+    const userFormData: UserInfo = this.editProfileForm.getRawValue();
 
-    const user = {
-      ...userData,
-      id: this.user.id
-    }
+    const userData = {
+      name: `${userFormData.name} ${userFormData.surname}`,
+      email: userFormData.email,
+      birthday: userFormData.birthday,
+      height: userFormData.height,
+      weight: userFormData.weight,
+      sex: this.user.sex,
+    };
 
-    this.editProfileService.updateUserProfile(user)
+    this.editProfileService.updateUserProfile(this.user.id, userData)
     .pipe(
-      finalize(() => console.log('Perfil Editado')),
+      finalize(() => { 
+      console.log('Perfil Editado')
+      this.handleUpdateUserLocalStorage(userData);
+      this.extractUserData();
+    }),
       catchError((error) => {
         return throwError(() => new Error(error));
       })
     ).subscribe();
+  }
+
+  handleUpdateUserLocalStorage(userData: any): void {
+    const currentValues = JSON.parse(localStorage.getItem('user-data')!);
+
+    const updatedValues = {
+      ...currentValues,
+      ...userData
+    } 
+
+    localStorage.setItem('user-data', JSON.stringify(updatedValues));
   }
 }

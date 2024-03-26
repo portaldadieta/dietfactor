@@ -21,7 +21,7 @@ export class NavbarComponent {
   userData = this.authService.getUserAuthData().user;
 
 
-  imgUser=`${Constants.API_URL}/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
+  imgUser = `${Constants.API_URL}/users/photos/${this.authService.getUserAuthData().user.id}.jpeg` || null;
 
   expand = false;
 

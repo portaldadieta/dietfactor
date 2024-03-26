@@ -12,9 +12,9 @@ export class EditProfileService {
 
   constructor(private http: HttpClient) { }
 
-  updateUserProfile(userData: UserInfo) {
+  updateUserProfile(userId: number, userData: UserInfo) {
       console.log(userData);
-      return this.http.put<UserInfo>(`${EditProfileService.dietFactorURL}/users/${userData?.id}`, userData);
+      return this.http.put<UserInfo>(`${EditProfileService.dietFactorURL}/users/${userId}`, userData);
   }
 
 }

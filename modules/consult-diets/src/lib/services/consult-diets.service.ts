@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AuthService } from '@dietfactor/modules/auth';
-import { Constants } from 'modules/constants';
+import { Constants } from '@dietfactor/modules/auth';
 import { Observable } from 'rxjs';
 @Injectable()
 export class ConsultDietsService {
