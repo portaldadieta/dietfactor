@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IAuth } from '../interfaces/IAuth.interface';
 import { Observable } from 'rxjs';
 import { IResponse } from '../interfaces/IResponse.interface';
-import { Constants } from 'modules/constants';
+import { Constants } from '../constants/constants';
 
 @Injectable({
   providedIn: 'root',

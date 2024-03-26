@@ -67,7 +67,7 @@ export class ConsultFoodComponent implements OnInit, OnDestroy {
   }
 
   initializeFoodData(): void {
-    this.consultFoodService.getFoodByAmount(21).pipe(
+    this.consultFoodService.getFoodByAmount().pipe(
       finalize(() => {
         this.filteredFoods = [...this.allFoods]
         console.log(this.filteredFoods);

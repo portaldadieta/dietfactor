@@ -4,7 +4,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { AuthService } from '@dietfactor/modules/auth';
-import { Constants } from 'modules/constants';
+import { Constants } from '@dietfactor/modules/auth';
 
 const MATERIAL_MODULES = [MatIconModule, MatButtonModule, ]
 @Component({
@@ -17,9 +17,11 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule, ]
 export class NavbarComponent {
   
   constructor(private authService: AuthService) {}
+  
+  userData = this.authService.getUserAuthData().user;
+
 
   imgUser=`${Constants.API_URL}/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
-  userData = this.authService.getUserAuthData().user;
 
   expand = false;
 

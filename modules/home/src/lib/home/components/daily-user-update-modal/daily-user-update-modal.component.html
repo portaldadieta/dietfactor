@@ -1,0 +1,53 @@
+<div class="container">
+    <form [formGroup]="userInfoForm">
+      <div class="title-close-wrap">
+        <h2 mat-dialog-title>
+          Gostaria de atualizar o seu Peso?
+        </h2>
+        <div class="close-button">
+          <button (click)="closeDailyUpdateUserInfo()">
+            <mat-icon> close </mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-wrap" mat-dialog-content>
+        <mat-form-field appearance="fill">
+          <mat-label>O seu peso atual é:</mat-label>
+          <input
+            type="text"
+            formControlName="oldWeight"
+            id="oldWeight"
+            matInput
+          />
+        </mat-form-field>
+      </div>
+
+
+  
+      <div class="input-wrap" mat-dialog-content>
+        <mat-form-field appearance="fill">
+          <mat-label>Digite o novo peso...</mat-label>
+          <input
+            type="number"
+            formControlName="newWeight"
+            id="newWeight"
+            matInput
+          />
+          @if(!userInfoForm.valid) {
+          <mat-error>Por favor, insira um peso válido.</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+        <button
+          [disabled]="!userInfoForm.valid"
+          mat-raised-button
+          color="primary"
+          (click)="handleUpdateUserInfo()"
+        >
+          Confirmar
+        </button>
+      </div>
+    </form>
+  </div>

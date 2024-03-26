@@ -93,7 +93,12 @@ export class EditProfileComponent {
   handleEditProfile(): void {
     const userData: UserInfo = this.editProfileForm.getRawValue();
 
-    this.editProfileService.updateUserProfile(userData)
+    const user = {
+      ...userData,
+      id: this.user.id
+    }
+
+    this.editProfileService.updateUserProfile(user)
     .pipe(
       finalize(() => console.log('Perfil Editado')),
       catchError((error) => {

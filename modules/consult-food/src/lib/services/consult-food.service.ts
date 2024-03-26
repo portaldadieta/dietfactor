@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Food } from '../consult-food/interfaces/food.interface';
-import { Constants } from 'modules/constants';
+import { Constants } from '@dietfactor/modules/auth';
 
 @Injectable({
   providedIn: 'root'

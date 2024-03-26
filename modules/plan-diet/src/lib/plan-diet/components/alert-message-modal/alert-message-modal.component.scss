@@ -1,0 +1,36 @@
+.alert-message {
+  height: 100vh;
+  width: calc(100% - 3px);
+  display: grid;
+  justify-content: center;
+  align-content: end;
+  border-left: 3px solid;
+  border-radius: 4px;
+  background-color: hsl(211, 83%, 79%);
+  border-color: hsl(245, 94%, 27%);
+  font-weight: 500;
+  color: rgb(24, 24, 24);
+  padding: 8px 0 30px 0;
+}
+
+.alert-message-wrapper {
+  p {
+    margin-top: 0.5rem;
+  }
+}
+
+.button-wrapper {
+   display: flex;
+   justify-content: space-between;
+}
+
+.close-button button {
+  margin-top: -5rem;
+}
+
+.close-button button, .cross {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

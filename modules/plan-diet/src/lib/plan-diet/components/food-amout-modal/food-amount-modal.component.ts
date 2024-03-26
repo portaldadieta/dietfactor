@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,6 +33,8 @@ const MATERIAL_MODULES = [
   styleUrl: './food-amount-modal.component.scss',
 })
 export class FoodAmountModalComponent implements OnInit {
+  @Input() foodAmountValue!: string | undefined;
+  
   foodAmountForm!: FormGroup;
 
   constructor(
@@ -51,6 +53,10 @@ export class FoodAmountModalComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
       ]),
     });
+
+    if(this.foodAmountValue) {
+      this.foodAmountForm.get('foodAmount')?.setValue(this.foodAmountValue);
+    }
   }
 
   closeFoodAmountModal(): void {

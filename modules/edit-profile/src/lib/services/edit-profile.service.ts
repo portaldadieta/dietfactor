@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Constants } from '@dietfactor/modules/auth';
 import { UserInfo } from '../edit-profile/interfaces/user.interface';
-import { Constants } from 'modules/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,8 @@ export class EditProfileService {
   constructor(private http: HttpClient) { }
 
   updateUserProfile(userData: UserInfo) {
-      return this.http.patch<UserInfo>(`${EditProfileService.dietFactorURL}/user/${userData?.id}`, userData);
+      console.log(userData);
+      return this.http.put<UserInfo>(`${EditProfileService.dietFactorURL}/users/${userData?.id}`, userData);
   }
 
 }

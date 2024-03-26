@@ -1,4 +1,4 @@
-import { Component, OnDestroy, AfterViewInit, OnInit, ViewChild, Renderer2, ElementRef, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +10,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import { FoodAmountModalComponent } from './components/food-amount-modal.component';
+import { FoodAmountModalComponent } from './components/food-amout-modal/food-amount-modal.component';
+import { AlertMessageModalComponent } from './components/alert-message-modal/alert-message-modal.component'
 import { Subscription, finalize } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { PlanDietService } from '../services/plan-diet.service';
@@ -62,8 +63,7 @@ const MATERIAL_MODULES = [
   templateUrl: './plan-diet.component.html',
   styleUrl: './plan-diet.component.scss',
 })
-export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('alertMessage') alertMessage!: ElementRef;
+export class PlanDietComponent implements OnInit, OnDestroy {
   dietPlanForm!: FormGroup;
   allFoods!: Food[];
   filteredFoods!: Food[];
@@ -74,20 +74,23 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
   subscription!: Subscription | undefined;
   totalKcal: number = 2000;
   totalProtein: number = 160;
-  authService: AuthService = inject(AuthService);
 
-  constructor(private dialog: MatDialog, private renderer: Renderer2, private planDietService: PlanDietService) {}
+  feedbackMessage: string = '';
+
+  private authService: AuthService = inject(AuthService);
+  private dialog: MatDialog = inject(MatDialog);
+  private planDietService: PlanDietService = inject(PlanDietService);
+
 
   ngOnInit(): void {
     this.initializeAllFoodsData();
     this.initializeDietPlanForm();
     this.myFoodsFiltered();
-    this.handleOpenalertMessage();
+    this.handleOpenAlertModal();
   }
 
-  ngAfterViewInit() {
-    this.handleOpenalertMessage();
-  }
+
+
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
@@ -183,32 +186,49 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
       height: '300px',
       data: food,
     });
+
+    foodAmountDialog.componentInstance.foodAmountValue = food?.amount;
+
     foodAmountDialog.afterClosed().subscribe((foodAmount) => {
-      if (foodAmount === undefined) {
+      if(foodAmount === undefined) {
         return;
       }
+    
       const index: number = selectedFoods.findIndex(
         (f) => f.name === food.name
       );
+
       selectedFoods[index] = {
         ...selectedFoods[index],
         amount: foodAmount,
       };
+      this.handleOpenAlertModal();
     });
   }
 
-  handleOpenalertMessage(): void {
-    if(this.totalKcal < 2100) {
-      setTimeout(() => {
-        this.renderer.addClass(this.alertMessage.nativeElement, 'open');
-      }, 3000);
-      setTimeout(() => { 
-        this.renderer.addClass(this.alertMessage.nativeElement, 'close');
-     }, 7000);
-     setTimeout(() => { 
-      this.renderer.removeClass(this.alertMessage.nativeElement, 'open')
-   }, 11000);
-    } 
+  handleOpenAlertModal(): void {
+    const alertModal = this.dialog.open(AlertMessageModalComponent, {
+      width: '500px',
+      height: '140px',
+      position: {
+        'bottom': '20px'
+      }});
+
+      alertModal.componentInstance.icon = 'warning';
+      alertModal.componentInstance.feedbackMessage = 'É necessário que você inclua mais proteína no seu plano alimentar'
+
+    const messages = {
+      lowProtein: 'É necessário que você inclua mais proteína no seu plano alimentar',
+      lowFat: 'É necessário que você inclua mais proteína no seu plano alimentar',
+      lowCarb: 'É necessário que você inclua mais carboidrato no seu plano alimentar',
+      excedentKcals: 'É necessário que você diminua a quantidade de calorias',
+      insufficientKcals: 'É necessário que você inclua mais calorias'
+    };
+
+    const feedback = 'lowProtein';
+    
+    // TODO Lógica para implementação do cálculo da dieta e mensagem.
+
   }
   createDiet(): void {
     const {dietName, dietGoal, activityFactor, valueObjective} = this.dietPlanForm.value;
@@ -239,7 +259,7 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
       ]
     }
     this.planDietService.createDiet(dietData).subscribe({
-      next: ()=> {
+      next: () => {
         this.dietPlanForm.reset();
         this.breakfastSelectedFoods = [];
         this.snackSelectedFoods = [];
@@ -247,7 +267,6 @@ export class PlanDietComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dinnerSelectedFoods = [];
 
         // TODO: Adicionar mensagem de sucesso ao criar dieta
-      this.renderer.addClass(this.alertMessage.nativeElement, 'open');
       }
     })
   }

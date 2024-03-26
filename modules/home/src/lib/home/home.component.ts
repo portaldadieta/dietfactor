@@ -7,7 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { AuthService } from '@dietfactor/modules/auth';
-import { Constants } from 'modules/constants';
+import { Constants } from '@dietfactor/modules/auth';
+import { MatDialog } from '@angular/material/dialog';
+import { DailyUserUpdateModalComponent } from './components/daily-user-update-modal/daily-user-update-modal.component';
 
 @Component({
   selector: 'dietfactor-home',
@@ -18,11 +20,13 @@ import { Constants } from 'modules/constants';
 })
 export class HomeComponent implements OnInit {
   authService: AuthService = inject(AuthService);
+  dialog: MatDialog = inject(MatDialog);
+
   imgUser=`${Constants.API_URL}/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
   weigthChart: any = [];
   otherChart: any = [];
   difference: number = 12;
-  userData = this.authService.getUserAuthData().user;
+  userData!: any;
 
   ngOnInit() {
     this.weigthChart = new Chart('weigthChart', {
@@ -97,6 +101,40 @@ export class HomeComponent implements OnInit {
         },
       },
     });
+
+    this.getUserData();
+    this.handleShowDailyModal();
   }
+
+  getUserData(): void {
+    const { id, name, email, height, weight, birthday } = this.authService.getUserAuthData().user;
+
+    this.userData = {
+      id,
+      name,
+      email,
+      height,
+      weight,
+      birthday
+    };
+  };
+
+handleShowDailyModal(): void {
+  const expiresTime = JSON.parse(localStorage.getItem('user-daily-update') || '{}').expiresTime || null;
+  
+  if(expiresTime <= Date.now() || expiresTime === undefined) {
+    localStorage.removeItem('user-daily-update');
+    this.openDailyWeightModal();
+    return;
+  }
+}
+  openDailyWeightModal(): void {
+    const dailyModalDialog = this.dialog.open(DailyUserUpdateModalComponent, {
+      width: '400px',
+      height: '400px'
+    });
+    dailyModalDialog.componentInstance.userData = this.userData;
+  }
+
 
 }
