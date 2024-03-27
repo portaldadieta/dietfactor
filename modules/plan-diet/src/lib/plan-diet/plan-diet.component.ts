@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { FoodAmountModalComponent } from './components/food-amout-modal/food-amount-modal.component';
 import { AlertMessageModalComponent } from './components/alert-message-modal/alert-message-modal.component'
-import { Subscription, finalize, forkJoin, switchMap, take } from 'rxjs';
+import { Subscription, finalize, forkJoin, map, switchMap, take } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { PlanDietService } from '../services/plan-diet.service';
 
@@ -208,11 +208,20 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   initializeAllFoodsData(): void {
     this.planDietService
       .getAllFoods()
-      .pipe(finalize(() => {
+      .pipe(
+        map(foods => {
+          return foods.map(food => {
+            return {
+              ...food,
+              amount: 100
+            } 
+          })
+        }),
+        finalize(() => {
         this.filteredFoods = [...this.allFoods];
         console.log(this.filteredFoods);
       }))
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log(res)
         this.allFoods = res;
       });
@@ -267,8 +276,8 @@ export class PlanDietComponent implements OnInit, OnDestroy {
         );
       } else {
         event.previousContainer.data.splice(event.previousIndex, 1);
-        this.handleUpdateDietValues();  
       }
+      this.handleUpdateDietValues();  
     }
   }
 
@@ -286,8 +295,8 @@ export class PlanDietComponent implements OnInit, OnDestroy {
       height: '300px',
       data: food,
     });
-
-    foodAmountDialog.componentInstance.foodAmountValue = food?.amount;
+    
+    foodAmountDialog.componentInstance.foodAmountValue = Number(food?.amount);
 
     foodAmountDialog.afterClosed().subscribe((foodAmount) => {
       if(foodAmount === undefined) {
@@ -442,5 +451,5 @@ interface Food {
   protein: number;
   carbs: number;
   fats: number;
-  amount?: string;
+  amount?: number;
 }

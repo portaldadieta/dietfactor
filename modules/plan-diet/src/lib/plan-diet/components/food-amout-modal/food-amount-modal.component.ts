@@ -33,7 +33,8 @@ const MATERIAL_MODULES = [
   styleUrl: './food-amount-modal.component.scss',
 })
 export class FoodAmountModalComponent implements OnInit {
-  @Input() foodAmountValue!: string | undefined;
+  @Input() foodAmountValue!: string | number 
+| undefined;
   
   foodAmountForm!: FormGroup;
 
