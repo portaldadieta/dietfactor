@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
   }
 
   getUserData(): void {
-    const { id, name, email, height, weight, birthday } = this.authService.getUserAuthData().user;
+    const { id, name, email, height, weight, birthday, sex } = this.authService.getUserAuthData().user;
 
     this.userData = {
       id,
@@ -116,7 +116,8 @@ export class HomeComponent implements OnInit {
       email,
       height: `${height.toString().padEnd(4, '0')}`,
       weight,
-      birthday
+      birthday,
+      sex
     };
   };
 

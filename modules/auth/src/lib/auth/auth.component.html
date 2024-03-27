@@ -45,7 +45,7 @@
           />
         </mat-form-field>
 
-        <button mat-raised-button (click)="handleLogin()">Login</button>
+        <button class="login-button" mat-raised-button [disabled]="!loginForm.valid" (click)="handleLogin()">Login</button>
 
         <div class="button-separator">
           <div class="button-separator-line"></div>

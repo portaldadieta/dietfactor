@@ -102,14 +102,9 @@ button {
   color: #003465;
 }
 
-// a {
-//   display: block;
-//   text-align: center;
-//   margin: 8px 0;
-//   text-decoration: none;
-//   font-weight: normal;
-// }
-
+.login-button:disabled {
+  background-color: #848da0 !important;
+}
 
 @media (min-width: 1024px) {
   .container {
