@@ -11,16 +11,19 @@ import { Constants } from '@dietfactor/modules/auth';
 import { MatDialog } from '@angular/material/dialog';
 import { DailyUserUpdateModalComponent } from './components/daily-user-update-modal/daily-user-update-modal.component';
 import { take } from 'rxjs';
+import { HomeService } from '../services/home.service';
 
 @Component({
   selector: 'dietfactor-home',
   standalone: true,
   imports: [CommonModule, NavbarComponent, MatIconModule, MatButtonModule, MatCardModule],
+  providers: [HomeService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   authService: AuthService = inject(AuthService);
+  homeService: HomeService = inject(HomeService);
   dialog: MatDialog = inject(MatDialog);
 
   imgUser=`${Constants.API_URL}/users/photos/${this.authService.getUserAuthData().user.id}.jpeg`;
@@ -29,7 +32,53 @@ export class HomeComponent implements OnInit {
   difference: number = 12;
   userData!: any;
 
+  diets: any = [];
+
+  totalKcal: number = 0;
+  totalCarbs: number = 0;
+  totalProteins: number = 0;
+  totalFat: number = 0;
+
   ngOnInit() {
+    this.getUserData();
+    this.calculateNutricionalValues();
+    this.handleShowDailyModal();
+  }
+
+  getUserData(): void {
+    const { id, name, email, height, weight, birthday, sex } = this.authService.getUserAuthData().user;
+
+    this.userData = {
+      id,
+      name,
+      email,
+      height: `${height.toString().padEnd(4, '0')}`,
+      weight,
+      birthday,
+      sex
+    };
+  };
+
+  calculateNutricionalValues() {
+    this.homeService.getNutricionalValues().subscribe(diets => {
+      console.log(diets)
+      diets.forEach(diet => {
+        diet.meals.forEach(meal => {
+          meal.foods.forEach(food => {
+            this.totalCarbs += food.carbs;
+            this.totalFat += food.fats;
+            this.totalKcal += food.kcal;
+            this.totalProteins += food.protein;
+          })
+        })
+      })
+
+      this.initializeCharts();
+    })
+
+  }
+
+  initializeCharts() {
     this.weigthChart = new Chart('weigthChart', {
       type: 'line',
       data: {
@@ -73,7 +122,7 @@ export class HomeComponent implements OnInit {
         labels: ['proteinas', 'gorduras', 'calorias', 'carboidratos'],
         datasets: [
           {
-            data: [87, 80, 79, 81],
+            data: [this.totalProteins, this.totalFat, this.totalKcal, this.totalCarbs],
             borderWidth: 2,
           },
         ],
@@ -102,24 +151,7 @@ export class HomeComponent implements OnInit {
         },
       },
     });
-
-    this.getUserData();
-    this.handleShowDailyModal();
   }
-
-  getUserData(): void {
-    const { id, name, email, height, weight, birthday, sex } = this.authService.getUserAuthData().user;
-
-    this.userData = {
-      id,
-      name,
-      email,
-      height: `${height.toString().padEnd(4, '0')}`,
-      weight,
-      birthday,
-      sex
-    };
-  };
 
 handleShowDailyModal(): void {
   const expiresTime = JSON.parse(localStorage.getItem('user-daily-update') || '{}').expiresTime || null;
