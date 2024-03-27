@@ -73,11 +73,11 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   breakfastSelectedFoods: Food[] = [];
   subscription!: Subscription | undefined;
 
-  
   totalKcal: number = 0;
   totalProtein: number = 0;
   totalFat: number = 0;
   totalCarbs: number = 0;
+  tracker: number = 0;
 
 
 
@@ -85,12 +85,14 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   proteinGoal: number = 160;
   fatsGoal: number = 70;
   carbsGoal: number = 150;
+  test: number = 0;
 
 
   dietTracker = signal(
     [this.breakfastSelectedFoods, this.snackSelectedFoods, this.lunchSelectedFoods, this.dinnerSelectedFoods]
   );
 
+  feedbackMessage = signal('');
 
   private authService: AuthService = inject(AuthService);
   private dialog: MatDialog = inject(MatDialog);
@@ -109,9 +111,14 @@ export class PlanDietComponent implements OnInit, OnDestroy {
           this.totalProtein += (Number(meal.amount) * Number(meal.protein)) / 100
           this.totalCarbs += (Number(meal.amount) * Number(meal.carbs)) / 100
           this.totalFat += (Number(meal.amount) * Number(meal.fats)) / 100
-        })
+        });
       });
-    });
+     this.handleFeedbackMessage();
+      console.log(this.totalKcal)
+      }, {
+        allowSignalWrites: true
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -126,6 +133,16 @@ export class PlanDietComponent implements OnInit, OnDestroy {
 
   handleUpdateDietValues(): void {
     this.dietTracker.update(currentValue => [...currentValue]);
+    this.tracker = 1;
+  }
+
+  handleFeedbackMessage(): void {
+      if(this.tracker) {
+        this.handleCheckIfDietIsOk();
+        if(this.feedbackMessage()) {
+        this.handleOpenAlertModal();  
+      }
+      }
   }
 
   initializeDietPlanForm(): void {
@@ -201,7 +218,6 @@ export class PlanDietComponent implements OnInit, OnDestroy {
       } else {
         event.previousContainer.data.splice(event.previousIndex, 1);
         this.handleUpdateDietValues();  
-        this.handleOpenAlertModal();
       }
     }
   }
@@ -234,40 +250,19 @@ export class PlanDietComponent implements OnInit, OnDestroy {
         ...selectedFoods[index],
         amount: foodAmount,
       };
-
+      
       this.handleUpdateDietValues();
-      this.handleOpenAlertModal();
     });
   }
 
   handleOpenAlertModal(): void {
-
+    if(this.feedbackMessage) {
     const alertModal = this.dialog.open(AlertMessageModalComponent, {
-      width: '400px',
-      height: '150px',
+      width: '470px',
+      height: '160px',
       position: {
         'bottom': '30px'
       }});
-
-    let feedback: string = '';
-
-    if(this.totalKcal < this.kcalGoal - 150) {
-      feedback = 'insufficientKcals';
-    } else if(this.totalKcal > this.kcalGoal + 150) {
-      feedback = 'excedentKcals';
-    } else if(this.totalProtein > this.proteinGoal + 10) {
-      feedback = 'highProtein';
-    } else if(this.totalProtein < this.proteinGoal - 10) {
-      feedback = 'lowProtein';
-    } else if(this.totalCarbs > this.carbsGoal + 10) {
-      feedback = 'highCarbs';
-    } else if(this.totalCarbs < this.carbsGoal - 10) {
-      feedback = 'lowCarbs';
-    } else if(this.totalFat > this.fatsGoal + 10) {
-      feedback = 'highFat';
-    } else if(this.totalFat < this.fatsGoal - 10) {
-      feedback = 'lowFat';
-    } 
 
     const messages: {
       [key: string]: string
@@ -283,9 +278,32 @@ export class PlanDietComponent implements OnInit, OnDestroy {
     }
 
       alertModal.componentInstance.icon = 'warning';
-      alertModal.componentInstance.feedbackMessage = messages[feedback] || '';
+      alertModal.componentInstance.feedbackMessage = messages[this.feedbackMessage()];
+    } 
   }
 
+  handleCheckIfDietIsOk(): void { 
+    if(this.totalKcal < this.kcalGoal - 150) {
+       this.feedbackMessage.set('insufficientKcals');
+
+    } else if(this.totalKcal > this.kcalGoal + 150) {
+      this.feedbackMessage.set('excedentKcals');
+    } else if(this.totalProtein > this.proteinGoal + 10) {
+      this.feedbackMessage.set('highProtein');
+    } else if(this.totalProtein < this.proteinGoal - 10) {
+      this.feedbackMessage.set('lowProtein');
+    } else if(this.totalCarbs > this.carbsGoal + 10) {
+      this.feedbackMessage.set('highCarbs');
+    } else if(this.totalCarbs < this.carbsGoal - 10) {
+      this.feedbackMessage.set('lowCarbs');
+    } else if(this.totalFat > this.fatsGoal + 10) {
+      this.feedbackMessage.set('highFat');
+    } else if(this.totalFat < this.fatsGoal - 10) {
+      this.feedbackMessage.set('lowFat');
+    } else {
+      this.feedbackMessage.set('');
+    } 
+  }
 
   createDiet(): void {
     const { dietName, dietGoal, activityFactor, valueObjective } = this.dietPlanForm.value;

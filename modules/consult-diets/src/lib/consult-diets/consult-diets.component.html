@@ -1,7 +1,7 @@
 <div class="container">
   <main class="diet-container">
     <form [formGroup]="dietSearchForm" class="form-container">
-      <h1 class="title">Minhas dietas ( {{ filteredDiets.length }} )</h1>
+      <h1 class="title">Minhas dietas ( {{ filteredDiets?.length }} )</h1>
       <mat-form-field appearance="fill" class="diet-search">
         <mat-label>Dietas...</mat-label>
         <label class="sr-only" for="search-diet">Minhas dietas</label>
