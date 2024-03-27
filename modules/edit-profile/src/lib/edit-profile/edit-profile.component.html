@@ -1,6 +1,10 @@
 <div class="edit-profile-container">
   <div class="form-container">
     <h1>Editar Perfil</h1>
+    <div class="image-upload">
+      <img class="image-user" [src]="imageSrc" *ngIf="imageSrc" />
+      <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    </div>
     <form class="edit-profile-form" [formGroup]="editProfileForm">
       <mat-form-field class="email-grid">
         <mat-label>E-mail</mat-label>

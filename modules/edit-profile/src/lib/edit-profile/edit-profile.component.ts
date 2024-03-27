@@ -17,8 +17,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { EditProfileService } from '../services/edit-profile.service';
 import { UserInfo } from '../edit-profile/interfaces/user.interface';
-import { finalize, catchError, throwError } from 'rxjs';
-import { AuthService } from '@dietfactor/modules/auth'
+import { finalize, catchError, throwError, switchMap } from 'rxjs';
+import { AuthService, Constants } from '@dietfactor/modules/auth'
 import { IResponse } from '@dietfactor/modules/auth';
 @Component({
   selector: 'dietfactor-edit-profile',
@@ -44,8 +44,10 @@ import { IResponse } from '@dietfactor/modules/auth';
   styleUrl: './edit-profile.component.scss',
 })
 export class EditProfileComponent implements OnInit {
+  image!: File;
   editProfileForm!: FormGroup;
   user!: IResponse['user'];
+  imageSrc = `${Constants.API_URL}/users/photos/${this.authService.getUserAuthData().user.id}.jpeg` || null;
 
 
   constructor(private editProfileService: EditProfileService, private authService: AuthService) {
@@ -102,10 +104,12 @@ export class EditProfileComponent implements OnInit {
 
     this.editProfileService.updateUserProfile(this.user.id, userData)
     .pipe(
+      switchMap((response: any)=>this.editProfileService.uploadImageUser(this.image, response.id)),
       finalize(() => { 
       console.log('Perfil Editado')
       this.handleUpdateUserLocalStorage(userData);
       this.extractUserData();
+      window.location.reload()
     }),
       catchError((error) => {
         return throwError(() => new Error(error));
@@ -122,5 +126,14 @@ export class EditProfileComponent implements OnInit {
     } 
 
     localStorage.setItem('user-data', JSON.stringify(updatedValues));
+  }
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.image = file;
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result as any;
+      reader.readAsDataURL(file);
+    }
   }
 }
