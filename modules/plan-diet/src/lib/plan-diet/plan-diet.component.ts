@@ -33,6 +33,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '@dietfactor/modules/auth';
+import { INutricionalValues } from './interfaces/INutricionalValues';
 
 const MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -73,13 +74,36 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   breakfastSelectedFoods: Food[] = [];
   subscription!: Subscription | undefined;
 
+  breakfastNutricionalValues: INutricionalValues = {
+    carbs: 0,
+    fat: 0,
+    kcal: 0,
+    protein: 0,
+  };
+  snackNutricionalValues: INutricionalValues = {
+    carbs: 0,
+    fat: 0,
+    kcal: 0,
+    protein: 0,
+  };
+  luchNutricionalValues: INutricionalValues = {
+    carbs: 0,
+    fat: 0,
+    kcal: 0,
+    protein: 0,
+  };
+  dinnerNutricionalValues: INutricionalValues = {
+    carbs: 0,
+    fat: 0,
+    kcal: 0,
+    protein: 0,
+  };
+
   totalKcal: number = 0;
   totalProtein: number = 0;
   totalFat: number = 0;
   totalCarbs: number = 0;
   tracker: number = 0;
-
-
 
   kcalGoal: number = 2200;
   proteinGoal: number = 160;
@@ -98,6 +122,24 @@ export class PlanDietComponent implements OnInit, OnDestroy {
   private dialog: MatDialog = inject(MatDialog);
   private planDietService: PlanDietService = inject(PlanDietService);
 
+  resetNutricionalValues = (meal: INutricionalValues) => {
+    meal.carbs = 0;
+    meal.fat = 0;
+    meal.kcal = 0;
+    meal.protein = 0;
+  }
+
+  calculateNutricionalValues = (mealPlan: Food[], meal: INutricionalValues) => {
+    this.resetNutricionalValues(meal);
+
+    mealPlan.forEach(item => {
+      meal.kcal += (Number(item.amount) * Number(item.kcal)) / 100;
+      meal.protein += (Number(item.amount) * Number(item.protein)) / 100;
+      meal.carbs += (Number(item.amount) * Number(item.carbs)) / 100;
+      meal.fat += (Number(item.amount) * Number(item.fats)) / 100;
+    })
+  }
+
 
   constructor() {
     effect(() => {
@@ -113,7 +155,15 @@ export class PlanDietComponent implements OnInit, OnDestroy {
           this.totalFat += (Number(meal.amount) * Number(meal.fats)) / 100
         });
       });
-     this.handleFeedbackMessage();
+      this.calculateNutricionalValues(this.breakfastSelectedFoods, this.breakfastNutricionalValues);
+
+      this.calculateNutricionalValues(this.snackSelectedFoods, this.snackNutricionalValues);
+
+      this.calculateNutricionalValues(this.lunchSelectedFoods, this.luchNutricionalValues);
+
+      this.calculateNutricionalValues(this.dinnerSelectedFoods, this.dinnerNutricionalValues);
+
+      this.handleFeedbackMessage();
       console.log(this.totalKcal)
       }, {
         allowSignalWrites: true
