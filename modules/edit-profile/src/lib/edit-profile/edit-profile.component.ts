@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
@@ -43,19 +43,21 @@ import { IResponse } from '@dietfactor/modules/auth';
   ],
   styleUrl: './edit-profile.component.scss',
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit {
   editProfileForm!: FormGroup;
   user!: IResponse['user'];
 
 
-
   constructor(private editProfileService: EditProfileService, private authService: AuthService) {
+  }
+
+  ngOnInit(): void {
     this.initializeFormGroup();
     this.extractUserData();
     this.fillUserFormData();
+
+    console.log(this.user);
   }
-
-
 
   initializeFormGroup(): void {
     this.editProfileForm = new FormGroup({
@@ -76,7 +78,7 @@ export class EditProfileComponent {
       email: this.user?.email,
       surname: this.user?.name.split(' ')[1],
       birthday: date,
-      height: this.user?.height,
+      height: this.user?.height * 100,
       weight: this.user?.weight,
     });
   }
@@ -93,7 +95,7 @@ export class EditProfileComponent {
       name: `${userFormData.name} ${userFormData.surname}`,
       email: userFormData.email,
       birthday: userFormData.birthday,
-      height: userFormData.height,
+      height: Number(userFormData.height) / 100,
       weight: userFormData.weight,
       sex: this.user.sex,
     };

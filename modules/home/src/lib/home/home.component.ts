@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
       id,
       name,
       email,
-      height: `${Number(height/ 100)}0`,
+      height: `${height.toString().padEnd(4, '0')}`,
       weight,
       birthday
     };

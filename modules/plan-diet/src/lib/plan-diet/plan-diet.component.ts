@@ -114,19 +114,15 @@ export class PlanDietComponent implements OnInit, OnDestroy {
     });
   }
 
-
   ngOnInit(): void {
     this.initializeAllFoodsData();
     this.initializeDietPlanForm();
     this.myFoodsFiltered();
   }
 
-
-
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
 
   handleUpdateDietValues(): void {
     this.dietTracker.update(currentValue => [...currentValue]);
@@ -278,7 +274,7 @@ export class PlanDietComponent implements OnInit, OnDestroy {
     } = {
       lowProtein: 'É necessário que você inclua mais proteína no seu plano alimentar',
       lowFat: 'É necessário que você inclua mais proteína no seu plano alimentar',
-      lowCarb: 'É necessário que você inclua mais carboidrato no seu plano alimentar',
+      lowCarbs: 'É necessário que você inclua mais carboidrato no seu plano alimentar',
       highProtein: 'É necessário que você diminua a quantidade de proteína do seu plano alimentar',
       highFat: 'É necessário que você diminua a quantidade de proteína do seu plano alimentar',
       highCarb: 'É necessário que você diminua a quantidade de carboidrato do seu plano alimentar',
@@ -287,7 +283,7 @@ export class PlanDietComponent implements OnInit, OnDestroy {
     }
 
       alertModal.componentInstance.icon = 'warning';
-      alertModal.componentInstance.feedbackMessage = messages[feedback];
+      alertModal.componentInstance.feedbackMessage = messages[feedback] || '';
   }
 
 
