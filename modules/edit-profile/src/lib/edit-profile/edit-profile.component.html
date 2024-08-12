@@ -1,0 +1,53 @@
+<div class="edit-profile-container">
+  <div class="form-container">
+    <h1>Editar Perfil</h1>
+    <div class="image-upload">
+      <img class="image-user" [src]="imageSrc" *ngIf="imageSrc" />
+      <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    </div>
+    <form class="edit-profile-form" [formGroup]="editProfileForm">
+      <mat-form-field class="email-grid">
+        <mat-label>E-mail</mat-label>
+        <input
+          placeholder="dietfactor@example.com"
+          formControlName="email"
+          matInput
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input placeholder="Nome" formControlName="name" matInput />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sobrenome</mat-label>
+        <input placeholder="Sobrenome" matInput formControlName="surname" />
+      </mat-form-field>
+      <mat-form-field class="birthday-grid">
+        <mat-label>Data de nascimento</mat-label>
+        <input matInput [matDatepicker]="datepicker" formControlName="birthday" />
+        <mat-hint>DD/MM/AAAA</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancelar</button>
+            <button mat-raised-button color="primary" matDatepickerApply>
+              Confirmar
+            </button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Altura (em cm)</mat-label>
+        <input placeholder='Ex.: "165"' matInput formControlName="height" type="number" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Peso (em kg)</mat-label>
+        <input placeholder='Ex.: "70"' matInput formControlName="weight" type="string"/>
+      </mat-form-field>
+    </form>
+    <button mat-flat-button color="primary" (click)="handleEditProfile()">Salvar</button>
+  </div>
+</div>

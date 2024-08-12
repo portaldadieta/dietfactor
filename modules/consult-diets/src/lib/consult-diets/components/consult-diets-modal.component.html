@@ -1,0 +1,57 @@
+<div class="container">
+  <form [formGroup]="dietInformationForm">
+    <header class="form-header">
+      <h2>Informações Básicas</h2>
+    </header>
+    <div class="basic-info-container">
+      <mat-form-field appearance="fill">
+        <mat-label> Nome </mat-label>
+        <input type="text" formControlName="dietName" id="name" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label> Objetivo </mat-label>
+        <input type="text" formControlName="dietGoal" id="goal" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label> Total de Calorias </mat-label>
+        <input
+          type="text"
+          formControlName="dietTotalKcal"
+          id="totalKcal"
+          matInput
+        />
+      </mat-form-field>
+    </div>
+
+    <h2>Macros</h2>
+    <div class="macros-container">
+      <mat-form-field appearance="fill">
+        <mat-label> Proteínas </mat-label>
+        <input
+          type="text"
+          formControlName="dietProtein"
+          id="proteins"
+          matInput
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label> Carboidratos </mat-label>
+        <input
+          type="text"
+          formControlName="dietCarbs"
+          id="carbohydrates"
+          matInput
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label> Gorduras </mat-label>
+        <input type="text" formControlName="dietFats" id="fats" matInput />
+      </mat-form-field>
+    </div>
+  </form>
+  <canvas id="otherChart">{{ otherChart }}</canvas>
+</div>

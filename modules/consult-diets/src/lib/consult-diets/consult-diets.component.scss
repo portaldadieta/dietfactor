@@ -1,42 +1,64 @@
 .container {
-  height: 100vh;
   display: flex;
   gap: 1rem;
   overflow: hidden;
 }
 
-.diet-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  place-content: space-evenly;
-  align-items: center;
+.form-container {
+  text-align: center;
 }
 
 .diet-search {
-  width: 500px;
+  width: 50%;
+}
+
+.diet-container {
+  margin: 0 auto;
+  padding: 6rem 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .my-diets-container {
-  padding: 20px;
-  height: 55%;
   display: grid;
-  grid-template-columns: minmax(auto, 1fr) 1fr;
-  gap: 6rem 8rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: 10px;
   overflow-y: auto;
 }
 
 .diet-card {
   padding: 6px 12px;
-  background-color: #f3efef;
-  border-radius: 10px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: none;
+  color: #383e49;
+  transition: background 0.2s;
+  width: 20rem;
+  max-width: 23.75rem;
   &:hover {
     cursor: pointer;
-    background-color: #d1d1d1;
+    background: rgba(0, 93, 231, 0.28);
   }
   ul {
+    padding: 0;
+    width: 100%;
     list-style: none;
-    text-align: right;
+    text-align: left;
+  }
+}
+
+.diet-not-found {
+  grid-column: 1 / -1;
+  margin-top: 4.5rem;
+  .not-found-message {
+    font-size: 1.3rem;
+    font-style: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
   }
 }
 
@@ -50,4 +72,16 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+@media (max-width: 1380px) {
+  .my-diets-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .my-diets-container {
+    grid-template-columns: 1fr;
+  }
 }

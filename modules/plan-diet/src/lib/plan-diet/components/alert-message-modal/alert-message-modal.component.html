@@ -1,0 +1,24 @@
+<div class="alert-message">
+    <div class="alert-message-wrapper">
+        <div class="button-wrapper">
+           <div>
+            <button class="cross">
+                <mat-icon >
+                    {{ icon }}
+                </mat-icon>
+            </button>
+
+           </div>
+            <div class="close-button">
+                <button (click)="closeAlertMessageModal()">
+                  <mat-icon> close </mat-icon>
+            </button>
+        </div>
+        </div>
+        <div>
+            <p>
+                {{ feedbackMessage }}
+              </p>
+        </div>
+    </div>
+  </div>

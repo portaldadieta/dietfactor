@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .split {
   height: 100%;
   width: 50%;
@@ -27,6 +28,36 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+=======
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #F0F1F3;
+  font-size: 0.8rem;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  color: #5d6679;
+}
+
+.logo-subtitle {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #003465;
+>>>>>>> a7f11186924e628681c923a7e828f76414e1b54f
 }
 
 .logo-text {
@@ -36,6 +67,7 @@
   font-size: 4rem;
 }
 
+<<<<<<< HEAD
 .centered {
   position: absolute;
   top: 50%;
@@ -55,6 +87,30 @@ mat-card-title {
   text-align: center;
   margin-bottom: 20px;
   font-size: x-large;
+=======
+.login-form-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-shadow: none;
+  border-radius: 8px;
+  
+  mat-label {
+    font-size: 0.6rem;
+  }
+
+  input {
+    font-size: 1rem;
+  }
+}
+
+.login-form-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #003465;
+  font-weight: 500;
+>>>>>>> a7f11186924e628681c923a7e828f76414e1b54f
 }
 
 mat-form-field {
@@ -63,6 +119,7 @@ mat-form-field {
 }
 
 button {
+<<<<<<< HEAD
   margin: 16px 0;
   width: 100%;
   text-align: center;
@@ -72,10 +129,23 @@ button {
 }
 
 .separator {
+=======
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1.5rem;
+  background-color: #003465 !important;
+  color: #fff !important;
+  text-align: center;
+  font-weight: 300;
+}
+
+.button-separator {
+>>>>>>> a7f11186924e628681c923a7e828f76414e1b54f
   display: flex;
   align-items: center;
   text-align: center;
   margin: 24px 0;
+<<<<<<< HEAD
 }
 
 .separator .line {
@@ -117,3 +187,54 @@ p {
   background: var(--primary) !important;
 }
 
+=======
+  color: #003465;
+  &-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color:  #003465;
+    position: relative;
+  }
+  &-text {
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.forgot-password {
+  display: block;
+  text-decoration: none;
+  margin: 0.5rem 0;
+  text-align: center;
+  font-weight: 300;
+  color: #003465;
+}
+
+.login-button:disabled {
+  background-color: #848da0 !important;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    margin: 11rem 80px 80px 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-content: center;
+    place-items: center;
+  }
+  .logo-title {
+    font-size: 4rem;
+  }
+  .logo-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .login-form-card {
+    mat-label, input {
+      font-size: 1rem;
+    }
+  }
+
+}
+>>>>>>> a7f11186924e628681c923a7e828f76414e1b54f

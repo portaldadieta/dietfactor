@@ -1,3 +1,24 @@
 <div class="home-container">
-    <dietfactor-navbar></dietfactor-navbar>
+  <div class="cards">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <img mat-card-avatar class="example-header-image" [src]="imgUser">
+        <mat-card-title>{{userData.name}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <span
+          [ngStyle]="{ color: difference > 0 ? '#149D52' : '#F2383A' }"
+          class="weigth-data"
+          >Peso: {{userData.weight}}kg
+        </span>
+        <span>Altura: {{userData.height}}m</span>
+        <span>Sexo: {{userData.sex}}</span>
+      </mat-card-content>
+      <mat-card-actions> </mat-card-actions>
+    </mat-card>
+  </div>
+  <div class="chart-container">
+    <canvas id="weigthChart">{{ weigthChart }}</canvas>
+    <canvas id="otherChart">{{ otherChart }}</canvas>
+  </div>
 </div>

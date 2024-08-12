@@ -1,0 +1,115 @@
+.container {
+  padding: 2rem;
+  gap: 2rem;
+  flex-direction: column;
+  display: flex;
+  font-size: 0.8rem;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  color: #5d6679;
+}
+
+.logo-subtitle {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #003465;
+}
+
+.form-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-shadow: none;
+  border-radius: 8px;
+  
+  mat-label {
+    font-size: 0.6rem;
+  }
+
+  input {
+    font-size: 1rem;
+  }
+}
+
+.login-form-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #003465;
+  font-weight: 500;
+}
+
+.form-field-wrapper {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.input-wrapper {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1.5rem;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.button-container button {
+  background-color: #003465;
+  color: #fff;
+}
+
+.button-container button:disabled {
+  background-color: #a3a3a3;
+  cursor: not-allowed;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    margin: 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-content: center;
+    place-items: center;
+  }
+  .logo-title {
+    font-size: 4rem;
+  }
+  
+  .logo-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .form-card {
+    mat-label, input {
+      font-size: 1rem;
+    }
+  }
+}
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  padding: 1rem;
+}
+.image-user {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}

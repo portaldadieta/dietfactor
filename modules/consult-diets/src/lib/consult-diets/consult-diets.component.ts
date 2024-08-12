@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -13,7 +13,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 import { NavbarComponent } from '@dietfactor/modules/navbar';
+import { ConsultDietsModalComponent } from './components/consult-diets-modal.component';
+import { Subscription } from 'rxjs';
+import { Diet } from '../interfaces/diet.interface';
+import { ConsultDietsService } from '../services/consult-diets.service';
+import { HttpClientModule } from '@angular/common/http';
+
 const MATERIAL_MODULES = [
   MatFormFieldModule,
   MatInputModule,
@@ -30,23 +37,33 @@ const MATERIAL_MODULES = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     NavbarComponent,
+    ConsultDietsModalComponent,
     UiComponent,
     ...MATERIAL_MODULES,
   ],
+  providers: [MatDialog, ConsultDietsService],
   templateUrl: './consult-diets.component.html',
   styleUrl: './consult-diets.component.scss',
 })
-export class ConsultDietsComponent implements OnInit {
+export class ConsultDietsComponent implements OnInit, OnDestroy {
   dietSearchForm!: FormGroup;
-  allDiets!: Diet[];
-  filteredDiets!: Diet[];
+  allDiets!: any[];
+  filteredDiets!: any[];
   filterName!: string;
+  subscription!: Subscription | undefined;
+
+  constructor(private dialog: MatDialog, private consultDietsService: ConsultDietsService) {}
 
   ngOnInit(): void {
     this.initializeDietSearchForm();
-    this.initializeStaticData();
+    this.getAllDiets();
     this.myDietsFiltered();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   initializeDietSearchForm(): void {
@@ -121,24 +138,7 @@ export class ConsultDietsComponent implements OnInit {
         carbs: 250,
         fat: 100,
       },
-      {
-        name: 'Dieta do Monstro',
-        goal: 'Bulking',
-        kcal: 2600,
-        protein: 140,
-        carbs: 250,
-        fat: 100,
-      },
-      {
-        name: 'Dieta do Monstro',
-        goal: 'Bulking',
-        kcal: 2600,
-        protein: 140,
-        carbs: 250,
-        fat: 100,
-      },
     ];
-    this.filteredDiets = [...this.allDiets];
   }
 
   myDietsFilter(name: string): void {
@@ -149,22 +149,52 @@ export class ConsultDietsComponent implements OnInit {
     const searchName = name.toLowerCase();
 
     this.filteredDiets = this.allDiets.filter((diet) => {
-      return diet.name.toLowerCase().includes(searchName);
+      return diet.title.toLowerCase().includes(searchName);
     });
   }
 
   myDietsFiltered(): void {
-    this.dietSearchForm
+    this.subscription = this.dietSearchForm
       .get('dietName')
       ?.valueChanges.subscribe((name) => this.myDietsFilter(name));
   }
-}
 
-interface Diet {
-  name: string;
-  kcal: number;
-  goal: 'Bulking' | 'Cutting' | 'Manutenção';
-  protein: number;
-  carbs: number;
-  fat: number;
+  openDietInfoModal(dietInfo: any): void {
+    this.dialog.open(ConsultDietsModalComponent, {
+      width: '1256px',
+      height: '380px',
+      data: dietInfo,
+    });
+  }
+  getAllDiets(): void {
+    this.consultDietsService.getDietsById().subscribe((diets)=>{
+      this.allDiets = diets;
+      this.allDiets.map((diet: any)=>{
+        this.sumNutrients(diet)
+      })
+      console.log(this.allDiets)
+      this.filteredDiets = [...this.allDiets];
+    });
+  }
+  sumNutrients(diet: any) {
+    var totalFats = 0;
+    var totalKcal = 0;
+    var totalCarbs = 0;
+    var totalProtein = 0;
+  
+    diet.meals.forEach((meal: any) => {
+      meal.foods.forEach((food: any) => {
+        totalFats += parseInt(food.fats);
+        totalKcal += parseInt(food.kcal);
+        totalCarbs += parseInt(food.carbs);
+        totalProtein += parseInt(food.protein);
+      });
+    });
+    diet['totalFats']=totalFats;
+    diet['totalKcal']=totalKcal;
+    diet['totalFats']=totalFats;
+    diet['totalCarbs']=totalCarbs;
+    diet['totalProtein']=totalProtein;
+  }
+  
 }

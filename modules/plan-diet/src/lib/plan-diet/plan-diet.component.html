@@ -1,1 +1,276 @@
-<p>plan-diet works!</p>
+<div class="container">
+  <main class="diet-container">
+
+
+    <form [formGroup]="dietPlanForm" class="form-container">
+      <h1 class="title">Planejar dieta</h1>
+
+      <div class="form-field-container">
+        <mat-form-field class="form-name" appearance="fill">
+          <mat-label>Nome da Dieta</mat-label>
+          <input matInput formControlName="dietName"/>
+        </mat-form-field>
+        <mat-form-field class="form-objective"
+          appearance="fill">
+          <mat-label>Objetivo</mat-label>
+          <mat-select formControlName="dietGoal">
+            <mat-option value="Manutencao">Manutenção</mat-option>
+            <mat-option value="Déficit">Déficit</mat-option>
+            <mat-option value="Superávit">Superávit</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field
+          class="form-value-objective"
+          matTooltipPosition="above"
+          matTooltip="Déficit calórico reduz peso; superávit calórico aumenta peso."
+          appearance="fill">
+          <mat-label>Déficit/Superávit</mat-label>
+          <input
+            formControlName="valueObjective"
+            matInput
+            placeholder="Déficit/Superávit"
+          />
+          @if(intensity?.invalid) {
+          <mat-error>Por favor, insira um número válido.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field
+          class="form-factor"
+          matTooltipPosition="above"
+          matTooltip="Intensidade de atividades físicas"
+          class="small-dropdown">
+          <mat-label>Fator de Atividade</mat-label>
+          <mat-select appearance="fill" formControlName="activityFactor">
+            <mat-option value="Leve">Leve</mat-option>
+            <mat-option value="Moderada">Moderada</mat-option>
+            <mat-option value="Intensa">Intensa</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="search-wrap">
+        <mat-form-field appearance="fill" class="food-search">
+          <mat-label class="mat-label-wrap">
+            <mat-icon>search</mat-icon>
+            Pesquisar alimento
+          </mat-label>
+          <input
+            type="search"
+            id="search-food"
+            placeholder="Ex. Iogurte grego"
+            formControlName="foodName"
+            matInput
+          />
+        </mat-form-field>
+
+        <div class="foods-to-select-container">
+          <div
+            cdkDropList
+            #avaiableFoods="cdkDropList"
+            [cdkDropListConnectedTo]="[
+              dinnerFoodSelected,
+              snackFoodSelected,
+              lunchFoodSelected,
+              breakfastFoodSelected
+            ]"
+            [cdkDropListData]="filteredFoods"
+            cdkDropListOrientation="vertical"
+            (cdkDropListDropped)="dropFood($event)"
+            id="possibleFoods"
+          >
+            @for (food of filteredFoods; track food) {
+            <mat-card class="card-food" cdkDrag>
+              <span class="card-food-name">{{ food.name }}</span>
+              <span>Carboidratos: {{ food.carbs }}g</span>
+              <span>Gordura: {{ food.fats }}g</span>
+              <span>Kcal: {{ food.kcal }}</span>
+              <span>Proteinas: {{ food.protein }}g</span>
+            </mat-card>
+            } @empty {
+            <div class="food-not-found">
+              <p class="not-found-message">
+                Não foram encontrados alimentos com esse nome
+                <mat-icon> sentiment_very_dissatisfied </mat-icon>
+              </p>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="possible-meals-container">
+        <div class="meal-container">
+          <mat-label class="mat-label-wrap">
+            <h2>
+              <mat-icon>fastfood</mat-icon>
+              Café da Manhã
+            </h2>
+          </mat-label>
+          <div class="selected-foods-container">
+            <mat-chip-set
+              cdkDropList
+              #breakfastFoodSelected="cdkDropList"
+              [cdkDropListData]="breakfastSelectedFoods"
+              [cdkDropListConnectedTo]="[avaiableFoods]"
+              class="selected-food-list mat-mdc-chip-set-stacked"
+              (cdkDropListDropped)="dropFood($event)"
+            >
+              @for (food of breakfastSelectedFoods; track food) {
+              @if(food.amount) {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, breakfastSelectedFoods)"
+              >
+                {{ food.name }} -
+                <span class="food-amount">{{ food.amount }}gr</span></mat-chip
+              >
+              } @else {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, breakfastSelectedFoods)"
+              >
+                {{ food.name }}
+              </mat-chip>
+              } }
+            </mat-chip-set>
+          </div>
+          <div class="nutricional-values">
+            <span>Kcal: {{breakfastNutricionalValues.kcal}}g</span>
+            <span>Carboidratos: {{breakfastNutricionalValues.carbs}}g</span>
+            <span>Proteínas: {{breakfastNutricionalValues.protein}}g</span>
+            <span>Gordura: {{breakfastNutricionalValues.fat}}g</span>
+          </div>
+        </div>
+        <div class="meal-container">
+          <mat-label class="mat-label-wrap">
+            <h2>
+              <mat-icon>fastfood</mat-icon>
+              Lanche
+            </h2>
+          </mat-label>
+          <div class="selected-foods-container">
+            <mat-chip-set
+              cdkDropList
+              #snackFoodSelected="cdkDropList"
+              [cdkDropListData]="snackSelectedFoods"
+              [cdkDropListConnectedTo]="[avaiableFoods]"
+              class="selected-food-list mat-mdc-chip-set-stacked"
+              (cdkDropListDropped)="dropFood($event)"
+            >
+              @for (food of snackSelectedFoods; track food) { @if(food.amount) {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, snackSelectedFoods)"
+                >{{ food.name }} -
+                <span class="food-amount">{{ food.amount }}gr</span></mat-chip
+              >
+              } @else {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, snackSelectedFoods)"
+                >{{ food.name }}</mat-chip
+              >
+              }}
+            </mat-chip-set>
+          </div>
+          <div class="nutricional-values">
+            <span>Kcal: {{snackNutricionalValues.kcal}}g</span>
+            <span>Carboidratos: {{snackNutricionalValues.carbs}}g</span>
+            <span>Proteínas: {{snackNutricionalValues.protein}}g</span>
+            <span>Gordura: {{snackNutricionalValues.fat}}g</span>
+          </div>
+        </div>
+
+        <div class="meal-container">
+          <mat-label class="mat-label-wrap">
+            <h2>
+              <mat-icon>fastfood</mat-icon>
+              Almoço
+            </h2>
+          </mat-label>
+          <div class="selected-foods-container">
+            <mat-chip-set
+              cdkDropList
+              #lunchFoodSelected="cdkDropList"
+              [cdkDropListData]="lunchSelectedFoods"
+              [cdkDropListConnectedTo]="[avaiableFoods]"
+              class="selected-food-list mat-mdc-chip-set-stacked"
+              (cdkDropListDropped)="dropFood($event)"
+            >
+              @for (food of lunchSelectedFoods; track food) { @if(food.amount) {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, lunchSelectedFoods)"
+                >{{ food.name }} -
+                <span class="food-amount">{{ food.amount }}gr</span></mat-chip
+              >
+              } @else {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, lunchSelectedFoods)"
+                >{{ food.name }}</mat-chip
+              >
+              } }
+            </mat-chip-set>
+          </div>
+
+          <div class="nutricional-values">
+            <span>Kcal: {{luchNutricionalValues.kcal}}g</span>
+            <span>Carboidratos: {{luchNutricionalValues.carbs}}g</span>
+            <span>Proteínas: {{luchNutricionalValues.protein}}g</span>
+            <span>Gordura: {{luchNutricionalValues.fat}}g</span>
+          </div>
+        </div>
+
+        <div class="meal-container">
+          <mat-label class="mat-label-wrap">
+            <h2>
+              <mat-icon>fastfood</mat-icon>
+              Jantar
+            </h2>
+          </mat-label>
+          <div class="selected-foods-container">
+            <mat-chip-set
+              cdkDropList
+              #dinnerFoodSelected="cdkDropList"
+              [cdkDropListData]="dinnerSelectedFoods"
+              [cdkDropListConnectedTo]="[avaiableFoods]"
+              class="selected-food-list mat-mdc-chip-set-stacked"
+              (cdkDropListDropped)="dropFood($event)"
+            >
+              @for (food of dinnerSelectedFoods; track food) { @if(food.amount)
+              {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, dinnerSelectedFoods)"
+                >{{ food.name }} -
+                <span class="food-amount">{{ food.amount }}gr</span></mat-chip
+              >
+              } @else {
+              <mat-chip
+                cdkDrag
+                (click)="openFoodAmountModal(food, dinnerSelectedFoods)"
+                >{{ food.name }}</mat-chip
+              >
+              } }
+            </mat-chip-set>
+          </div>
+
+          <div class="nutricional-values">
+            <span>Kcal: {{dinnerNutricionalValues.kcal}}g</span>
+            <span>Carboidratos: {{dinnerNutricionalValues.carbs}}g</span>
+            <span>Proteínas: {{dinnerNutricionalValues.protein}}g</span>
+            <span>Gordura: {{dinnerNutricionalValues.fat}}g</span>
+          </div>
+        </div>
+      </div>
+        <div class="button-container">
+          <button (click)="createDiet()" [disabled]="!dietPlanForm.valid" mat-raised-button class="">
+            Criar dieta
+          </button>
+        </div>
+    </form>
+  </main>
+</div>

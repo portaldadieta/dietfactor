@@ -1,0 +1,40 @@
+<div class="container">
+  <h2 mat-dialog-title>{{data.name}}</h2>
+
+  <div class="content" mat-dialog-content>
+    <ul>
+      <li>
+        <mat-icon>pie_chart</mat-icon>
+        <div>
+          <p class="category_title">Calorias</p>
+          <p class="category_value">{{data.kcal}} <span>kcal</span></p>
+        </div>
+      </li>
+      <li>
+        <mat-icon>pie_chart</mat-icon>
+        <div>
+          <p class="category_title">Proteínas</p>
+          <p class="category_value">{{data.protein}}</p>
+        </div>
+      </li>
+      <li>
+        <mat-icon>pie_chart</mat-icon>
+        <div>
+          <p class="category_title">Carboidratos</p>
+          <p class="category_value">{{data.carbs}}</p>
+        </div>
+      </li>
+      <li>
+        <mat-icon>pie_chart</mat-icon>
+        <div>
+          <p class="category_title">Gordura</p>
+          <p class="category_value">{{data.fats}}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="actions" mat-dialog-actions>
+    <button mat-button (click)="closeModal()">Fechar</button>
+  </div>
+</div>

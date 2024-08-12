@@ -1,0 +1,35 @@
+.container {
+  height: 100vh;
+  padding: 2.5rem;
+  display: flex;
+  gap: 2rem;
+  background-color: #fff;
+}
+canvas{
+  width: 300px;
+  height: 300px;
+}
+.form-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container mat-form-field input {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+.macros-container,
+.basic-info-container {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.close-button button,
+.edit-button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
