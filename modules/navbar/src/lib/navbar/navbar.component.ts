@@ -3,14 +3,10 @@ import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-const MATERIAL_MODULES = [MatIconModule, MatButtonModule]
-=======
 import { AuthService } from '@dietfactor/modules/auth';
 import { Constants } from '@dietfactor/modules/auth';
 
 const MATERIAL_MODULES = [MatIconModule, MatButtonModule, ]
->>>>>>> a7f11186924e628681c923a7e828f76414e1b54f
 @Component({
   selector: 'dietfactor-navbar',
   standalone: true,
@@ -19,19 +15,9 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule, ]
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-<<<<<<< HEAD
-  router = inject(Router);
 
-  redirectToAuth(): void {
-    this.router.navigateByUrl('/auth')
-  }
-  redirectTo(path: string): void {
-    this.router.navigateByUrl(path);
-  }
-=======
-  
   constructor(private authService: AuthService) {}
-  
+
   userData = this.authService.getUserAuthData().user;
 
 
@@ -82,5 +68,4 @@ export class NavbarComponent {
     this.expand = !this.expand;
   }
 
->>>>>>> a7f11186924e628681c923a7e828f76414e1b54f
 }

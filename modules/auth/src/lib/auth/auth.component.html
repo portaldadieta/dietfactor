@@ -30,15 +30,9 @@
     <mat-card class="login-form-card">
       <mat-card-title class="login-form-title">Acesse a plataforma</mat-card-title>
       <mat-card-content>
-<<<<<<< HEAD
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput placeholder="Email" />
-=======
         <mat-form-field appearance="fill">
           <mat-label>E-mail</mat-label>
           <input matInput placeholder="Email" formControlName="email" />
->>>>>>> a7f11186924e628681c923a7e828f76414e1b54f
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -51,11 +45,7 @@
           />
         </mat-form-field>
 
-<<<<<<< HEAD
-        <button class="login-button" mat-raised-button (click)="redirectToRoute()">Login</button>
-=======
         <button class="login-button" mat-raised-button [disabled]="!loginForm.valid" (click)="handleLogin()">Login</button>
->>>>>>> a7f11186924e628681c923a7e828f76414e1b54f
 
         <div class="button-separator">
           <div class="button-separator-line"></div>
