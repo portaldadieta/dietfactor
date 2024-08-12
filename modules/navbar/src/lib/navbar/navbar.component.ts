@@ -15,9 +15,9 @@ const MATERIAL_MODULES = [MatIconModule, MatButtonModule, ]
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  
+
   constructor(private authService: AuthService) {}
-  
+
   userData = this.authService.getUserAuthData().user;
 
 
